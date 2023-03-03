@@ -1,4 +1,4 @@
-import Document, { Head, Html, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 // TODO: search for twitterbio
 class MyDocument extends Document {
@@ -16,9 +16,15 @@ class MyDocument extends Document {
             property="og:description"
             content="Create your own ChatGpt App in seconds."
           />
-          <meta property="og:title" content="Twitter Bio Generator" />
+          <meta
+            property="og:title"
+            content="Create ChatGpt Application in seconds"
+          />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Twitter Bio Generator" />
+          <meta
+            name="twitter:title"
+            content="Create ChatGpt Application in seconds"
+          />
           <meta
             name="twitter:description"
             content="Create your own ChatGpt App in seconds."
