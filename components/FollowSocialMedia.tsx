@@ -1,10 +1,28 @@
 import Link from 'next/link';
 
-export default function Footer() {
+const FollowSocialMedia = () => {
   return (
-    <footer className="text-center h-16 sm:h-20 w-full sm:pt-2 pt-4 border-t mt-5 flex sm:flex-row flex-col justify-between items-center px-3 space-y-3 sm:mb-0 mb-3">
-      <div></div>
-      <div className="flex space-x-4 pb-4 sm:pb-0">
+    <div className="flex space-x-4 pb-4 mx-auto sm:pb-0 items-center justify-center mb-10">
+      <div>
+        关注{' '}
+        <Link
+          href="https://twitter.com/EclipsePrayer"
+          className="group underline hover:text-blue-400"
+          aria-label="TantanFu on Twitter"
+        >
+          Twitter
+        </Link>{' '}
+        和{' '}
+        <Link
+          href="https://github.com/futantan/OpenGpt"
+          className="group underline hover:text-gray-400"
+          aria-label="TantanFu on GitHub"
+        >
+          GitHub
+        </Link>
+        ，获取最新进展!
+      </div>
+      <div className="flex items-center gap-3">
         <Link
           href="https://twitter.com/EclipsePrayer"
           className="group"
@@ -30,6 +48,8 @@ export default function Footer() {
           </svg>
         </Link>
       </div>
-    </footer>
+    </div>
   );
-}
+};
+
+export default FollowSocialMedia;
