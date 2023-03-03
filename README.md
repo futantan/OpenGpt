@@ -6,6 +6,8 @@
 我准备创建一个 AI 平台，让所有用户都可以使用并创建 #ChatGPT 小应用。开源！
 会在 [Twitter](https://twitter.com/EclipsePrayer) 上实时推送进展，欢迎点赞关注!
 
+[![OpenGpt](./public/screenshot.png)](https://twitter.com/EclipsePrayer)
+
 
 ## 计划的功能
 
