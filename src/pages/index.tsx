@@ -1,4 +1,5 @@
-import FollowSocialMedia from '@/components/FollowSocialMedia';
+import FollowSocialMedia from '@/components/FollowSocialMedia'
+import { prisma } from '@/server/db'
 import {
   AcademicCapIcon,
   BanknotesIcon,
@@ -6,9 +7,28 @@ import {
   ClockIcon,
   ReceiptRefundIcon,
   UsersIcon,
-} from '@heroicons/react/24/outline';
-import type { NextPage } from 'next';
-import Link from 'next/link';
+} from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import Link from 'next/link'
+
+type App = {
+  id: string
+  name: string
+  description: string
+  icon: string
+}
+type PageProps = { apps: App[] }
+export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
+  const apps = await prisma.openGptApp.findMany({
+    select: { id: true, name: true, description: true, icon: true },
+  })
+  return {
+    props: {
+      apps,
+    },
+  }
+}
 
 const actions = [
   {
@@ -16,7 +36,6 @@ const actions = [
     href: '/coming-soon',
     icon: ClockIcon,
     emoji: '📅',
-    iconForeground: 'text-teal-700',
     iconBackground: 'bg-teal-50',
     description:
       '利用 ChatGPT 提供的 AI 功能，你的个人助手应用将帮助你更高效地管理日常任务和计划。从创建日程表到设置提醒，一切都可以轻松搞定！',
@@ -26,7 +45,6 @@ const actions = [
     href: '/coming-soon',
     icon: CheckBadgeIcon,
     emoji: '️📝',
-    iconForeground: 'text-purple-700',
     iconBackground: 'bg-purple-50',
     description:
       '利用 ChatGPT 的强大智能能力，你的写作变得更加轻松和高效。我们的智能写作工具将帮助你生成高质量的文章和文本，省去了繁琐的编辑和润色过程！',
@@ -36,7 +54,6 @@ const actions = [
     href: '/coming-soon',
     icon: UsersIcon,
     emoji: '🌎️',
-    iconForeground: 'text-sky-700',
     iconBackground: 'bg-sky-50',
     description:
       '无论是日常沟通还是商务交流，语言不再是问题！我们的智能翻译器将帮助你快速准确地翻译各种语言。',
@@ -46,7 +63,6 @@ const actions = [
     href: '/coming-soon',
     icon: BanknotesIcon,
     emoji: '💻',
-    iconForeground: 'text-yellow-700',
     iconBackground: 'bg-yellow-50',
     description:
       '想要更高效地编写代码吗？我们的智能编程助手将帮助你完成复杂的编程任务，提高你的编程效率和质量。从语法提示到代码优化，一切都在掌握之中！',
@@ -56,7 +72,6 @@ const actions = [
     href: '/coming-soon',
     icon: ReceiptRefundIcon,
     emoji: '💰',
-    iconForeground: 'text-rose-700',
     iconBackground: 'bg-rose-50',
     description:
       '想要更好地掌握投资和财务管理技能吗？利用我们的智能金融分析应用，你可以轻松获得各种股票、基金和市场指数的分析和预测信息。让 ChatGPT 的 AI 功能成为你的金融智囊，帮助你更好地做出决策！',
@@ -66,22 +81,29 @@ const actions = [
     href: '/coming-soon',
     icon: AcademicCapIcon,
     emoji: '🌴',
-    iconForeground: 'text-indigo-700',
     iconBackground: 'bg-indigo-50',
     description:
       '想要规划一次完美的旅行吗？我们的智能旅游规划应用将帮助你快速制定行程和预算，并为你推荐最佳的景点和活动。让 ChatGPT 的 AI 功能成为你的旅行顾问，让旅行更加愉快！',
   },
-];
+]
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
-}
+const Home = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  const { apps } = props
 
-const Home: NextPage = () => {
+  const currentApps = apps.map((v) => ({
+    title: v.name,
+    description: v.description,
+    href: '/app/' + v.id,
+    emoji: v.icon,
+    iconBackground: 'bg-indigo-50',
+  }))
+
   return (
-    <div className="bg-gray-200 py-8 min-h-screen">
+    <div className="min-h-screen bg-gray-200 py-8">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl my-10 sm:my-28">
+        <h1 className="my-10 max-w-5xl text-center text-4xl font-bold sm:my-28 sm:text-7xl">
           Create{' '}
           <span className="relative whitespace-nowrap text-[#3290EE]">
             <svg
@@ -99,7 +121,7 @@ const Home: NextPage = () => {
 
         <FollowSocialMedia />
 
-        <div className="flex justify-end mb-2">
+        <div className="mb-2 flex justify-end">
           <Link
             href="/coming-soon"
             className="rounded-full bg-green-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -107,11 +129,11 @@ const Home: NextPage = () => {
             创建应用
           </Link>
         </div>
-        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0 mb-44">
-          {actions.map((action, actionIdx) => (
+        <div className="mb-44 divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
+          {[...currentApps, ...actions].map((action, actionIdx) => (
             <div
-              key={action.title}
-              className={classNames(
+              key={actionIdx}
+              className={clsx(
                 actionIdx === 0
                   ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none'
                   : '',
@@ -125,14 +147,13 @@ const Home: NextPage = () => {
             >
               <div>
                 <span
-                  className={classNames(
+                  className={clsx(
                     action.iconBackground,
-                    action.iconForeground,
                     'inline-flex rounded-lg p-3 ring-4 ring-white'
                   )}
                 >
                   <div
-                    className="h-6 w-6 flex items-center justify-center"
+                    className="flex h-6 w-6 items-center justify-center"
                     aria-hidden="true"
                   >
                     {action.emoji}
@@ -168,7 +189,7 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

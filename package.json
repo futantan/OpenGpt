@@ -22,6 +22,7 @@
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "@vercel/analytics": "^0.1.8",
+    "clsx": "^1.2.1",
     "csstype": "^3.0.10",
     "eventsource-parser": "^0.0.5",
     "next": "^13.2.1",

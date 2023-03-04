@@ -1,12 +1,12 @@
-import { type NextPage } from 'next';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import Link from 'next/link';
+import { type NextPage } from 'next'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Head from 'next/head'
+import Link from 'next/link'
 
-import { api } from '@/utils/api';
+import { api } from '@/utils/api'
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: 'from tRPC' });
+  const hello = api.example.hello.useQuery({ text: 'from tRPC' })
 
   return (
     <>
@@ -53,18 +53,18 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData } = useSession()
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined }
-  );
+  )
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
@@ -79,5 +79,5 @@ const AuthShowcase: React.FC = () => {
         {sessionData ? 'Sign out' : 'Sign in'}
       </button>
     </div>
-  );
-};
+  )
+}

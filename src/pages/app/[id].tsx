@@ -4,21 +4,60 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Footer from '@/components/Footer'
 import LoadingDots from '@/components/LoadingDots'
-import type { NextPage } from 'next'
+import { prisma } from '@/server/db'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 
-const applicationName = 'Generate your next Twitter bio using chatGPT'
-const hint = 'Copy your current bio (or write a few sentences about yourself).'
-const demoInput =
-  'e.g. Senior Developer Advocate @vercel. Tweeting about web development, AI, and React / Next.js. Writing nutlope.substack.com.'
-const applicationPrompt =
-  'Generate 1 Professional twitter biographies with no hashtags and clearly Make sure generated biography is less than 160 characters, has short sentences that are found in Twitter bios, and base them on this context: '
+type AppConfig = {
+  id: string
+  name: string
+  description: string
+  icon: string
+  demoInput: string
+  prompt: string // TODO: check if this is needed in client
+  hint: string
+}
+type PageProps = { appConfig: AppConfig }
+export const getServerSideProps: GetServerSideProps<
+  PageProps,
+  { id: string }
+> = async ({ params }) => {
+  const id = params?.id
+  const appConfig = await prisma.openGptApp.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      icon: true,
+      prompt: true,
+      demoInput: true,
+      hint: true,
+    },
+  })
+  if (!appConfig) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return { notFound: true } as any
+  }
+  return {
+    props: {
+      appConfig,
+    },
+  }
+}
 
-const Home: NextPage = () => {
+const OpenGptApp = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  const { id, demoInput, description, hint, icon, name, prompt } =
+    props.appConfig
   const [loading, setLoading] = useState(false)
-  const [userInput, setUserInput] = useState('')
+  const [userInput, setUserInput] = useState(demoInput)
   const [generatedResults, setGeneratedResults] = useState<string>('')
 
   const resultRef = useRef<null | HTMLDivElement>(null)
@@ -28,8 +67,6 @@ const Home: NextPage = () => {
       resultRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }
-
-  const prompt = `${applicationPrompt} ${userInput}`
 
   const generateResult = async (e: any) => {
     if (loading) {
@@ -45,7 +82,7 @@ const Home: NextPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt,
+        prompt: `${prompt} ${userInput}`,
       }),
     })
 
@@ -74,16 +111,22 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center py-2">
+    <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center py-2">
       <Head>
-        <title>{applicationName}</title>
+        <title>{name}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="mt-12 flex w-full flex-1 flex-col items-center justify-center px-4 text-center sm:mt-20">
+        <div className="mb-20 flex">
+          <Link href="/">&#8592;首页</Link>
+        </div>
+
         <h1 className="max-w-[708px] text-4xl font-bold text-slate-900 sm:text-6xl">
-          {applicationName}
+          {name}
         </h1>
+
+        <p className="mt-6 text-lg leading-8 text-gray-600">{description}</p>
 
         <div className="w-full max-w-xl">
           <div className="mt-10 flex items-center space-x-3">
@@ -105,41 +148,40 @@ const Home: NextPage = () => {
           >
             {loading ? <LoadingDots color="white" style="large" /> : '运行'}
           </button>
-        </div>
 
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{ duration: 2000 }}
-        />
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            toastOptions={{ duration: 2000 }}
+          />
 
-        <hr className="border-1 h-px bg-gray-700 dark:bg-gray-700" />
-        <div className="my-10 space-y-10">
-          {generatedResults && (
-            <>
-              <div>
+          <div className="my-10 w-full space-y-10">
+            {generatedResults && (
+              <div className="flex flex-col gap-8">
                 <h2
                   className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
                   ref={resultRef}
                 >
-                  运行结果
+                  结果
                 </h2>
-              </div>
-              <div className="mx-auto flex max-w-xl flex-col items-center justify-center space-y-8">
-                <div
-                  className="cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
-                  onClick={() => {
-                    navigator.clipboard.writeText(generatedResults)
-                    toast('Result copied to clipboard', {
-                      icon: '✂️',
-                    })
-                  }}
-                >
-                  <p>{generatedResults}</p>
+                <div className="flex w-full flex-col items-center justify-center space-y-8">
+                  <div
+                    className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
+                    onClick={() => {
+                      navigator.clipboard.writeText(generatedResults)
+                      toast('Result copied to clipboard', {
+                        icon: '✂️',
+                      })
+                    }}
+                  >
+                    <p className="whitespace-pre-line text-left">
+                      {generatedResults}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </main>
       <Footer />
@@ -147,4 +189,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default OpenGptApp
