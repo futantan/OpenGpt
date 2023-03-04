@@ -118,7 +118,7 @@ const OpenGptApp = (
       </Head>
 
       <main className="mt-12 flex w-full flex-1 flex-col items-center justify-center px-4 text-center sm:mt-20">
-        <div className="mb-20 flex">
+        <div className="mb-20 flex w-full">
           <Link href="/">&#8592;首页</Link>
         </div>
 
