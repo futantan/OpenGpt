@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 const FollowSocialMedia = () => {
   return (
-    <div className="flex space-x-4 pb-4 mx-auto sm:pb-0 items-center justify-center mb-10">
+    <div className="mx-auto mb-10 flex items-center justify-center space-x-4 pb-4 sm:pb-0">
       <div>
         关注{' '}
         <Link
@@ -49,7 +49,7 @@ const FollowSocialMedia = () => {
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FollowSocialMedia;
+export default FollowSocialMedia
