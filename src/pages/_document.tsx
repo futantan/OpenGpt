@@ -1,6 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-// TODO: search for twitterbio
 class MyDocument extends Document {
   render() {
     return (
@@ -11,7 +10,10 @@ class MyDocument extends Document {
             name="description"
             content="Create your own ChatGpt App in seconds."
           />
-          <meta property="og:site_name" content="twitterbio.com" />
+          <meta
+            property="og:site_name"
+            content="https://open-gpt-app.vercel.app/"
+          />
           <meta
             property="og:description"
             content="Create your own ChatGpt App in seconds."
@@ -31,11 +33,11 @@ class MyDocument extends Document {
           />
           <meta
             property="og:image"
-            content="https://twitterbio.com/og-image.png"
+            content="https://open-gpt-app.vercel.app/og-image.png"
           />
           <meta
             name="twitter:image"
-            content="https://twitterbio.com/og-image.png"
+            content="https://open-gpt-app.vercel.app/og-image.png"
           />
         </Head>
         <body>
