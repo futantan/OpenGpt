@@ -12,9 +12,14 @@
 ## 计划的功能
 
 - [ ] 用户可以直接运行每一个 App
+  - ✅ 2023-03-04 上线第一个 App “Free Style 说唱歌词生成器”
 - [ ] 用户可以创建自己的 App
 - More to come...
 
 ## 共同建设
 
 加入 [Discord](https://discord.gg/84J7aMyyCG)，我们一起讨论产品未来
+
+## 交个朋友 或 鼓励一下
+
+![wechat](./public/wechat.png)
