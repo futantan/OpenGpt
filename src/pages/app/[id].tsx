@@ -77,7 +77,7 @@ const OpenGptApp = (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt: `${prompt} ${userInput}`,
+        prompt: `${prompt} {${userInput}}`,
       }),
     })
 
