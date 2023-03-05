@@ -1,14 +1,6 @@
 import FollowSocialMedia from '@/components/FollowSocialMedia'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
-import {
-  AcademicCapIcon,
-  BanknotesIcon,
-  CheckBadgeIcon,
-  ClockIcon,
-  ReceiptRefundIcon,
-  UsersIcon,
-} from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Link from 'next/link'
@@ -30,63 +22,6 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
     },
   }
 }
-
-const actions = [
-  {
-    title: '个人助手应用',
-    href: '/coming-soon',
-    icon: ClockIcon,
-    emoji: '📅',
-    iconBackground: 'bg-teal-50',
-    description:
-      '利用 ChatGPT 提供的 AI 功能，你的个人助手应用将帮助你更高效地管理日常任务和计划。从创建日程表到设置提醒，一切都可以轻松搞定！',
-  },
-  {
-    title: '智能写作工具',
-    href: '/coming-soon',
-    icon: CheckBadgeIcon,
-    emoji: '️📝',
-    iconBackground: 'bg-purple-50',
-    description:
-      '利用 ChatGPT 的强大智能能力，你的写作变得更加轻松和高效。我们的智能写作工具将帮助你生成高质量的文章和文本，省去了繁琐的编辑和润色过程！',
-  },
-  {
-    title: '智能翻译器',
-    href: '/coming-soon',
-    icon: UsersIcon,
-    emoji: '🌎️',
-    iconBackground: 'bg-sky-50',
-    description:
-      '无论是日常沟通还是商务交流，语言不再是问题！我们的智能翻译器将帮助你快速准确地翻译各种语言。',
-  },
-  {
-    title: '智能编程助手',
-    href: '/coming-soon',
-    icon: BanknotesIcon,
-    emoji: '💻',
-    iconBackground: 'bg-yellow-50',
-    description:
-      '想要更高效地编写代码吗？我们的智能编程助手将帮助你完成复杂的编程任务，提高你的编程效率和质量。从语法提示到代码优化，一切都在掌握之中！',
-  },
-  {
-    title: '智能金融分析',
-    href: '/coming-soon',
-    icon: ReceiptRefundIcon,
-    emoji: '💰',
-    iconBackground: 'bg-rose-50',
-    description:
-      '想要更好地掌握投资和财务管理技能吗？利用我们的智能金融分析应用，你可以轻松获得各种股票、基金和市场指数的分析和预测信息。让 ChatGPT 的 AI 功能成为你的金融智囊，帮助你更好地做出决策！',
-  },
-  {
-    title: '智能旅游规划',
-    href: '/coming-soon',
-    icon: AcademicCapIcon,
-    emoji: '🌴',
-    iconBackground: 'bg-indigo-50',
-    description:
-      '想要规划一次完美的旅行吗？我们的智能旅游规划应用将帮助你快速制定行程和预算，并为你推荐最佳的景点和活动。让 ChatGPT 的 AI 功能成为你的旅行顾问，让旅行更加愉快！',
-  },
-]
 
 const Home = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -131,7 +66,7 @@ const Home = (
           </Link>
         </div>
         <div className="mb-44 divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">
-          {[...currentApps, ...actions].map((action, actionIdx) => (
+          {currentApps.map((action, actionIdx) => (
             <div
               key={actionIdx}
               className={clsx(
@@ -139,8 +74,8 @@ const Home = (
                   ? 'rounded-tl-lg rounded-tr-lg sm:rounded-tr-none'
                   : '',
                 actionIdx === 1 ? 'sm:rounded-tr-lg' : '',
-                actionIdx === actions.length - 2 ? 'sm:rounded-bl-lg' : '',
-                actionIdx === actions.length - 1
+                actionIdx === currentApps.length - 2 ? 'sm:rounded-bl-lg' : '',
+                actionIdx === currentApps.length - 1
                   ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none'
                   : '',
                 'group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-green-500'
