@@ -1,11 +1,11 @@
-import FollowSocialMedia from '@/components/FollowSocialMedia';
-import type { NextPage } from 'next';
+import FollowSocialMedia from '@/components/FollowSocialMedia'
+import type { NextPage } from 'next'
 
 const ComingSoon: NextPage = () => {
   return (
-    <div className="bg-gray-200 py-8 min-h-screen">
+    <div className="min-h-screen bg-gray-200 py-8">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h1 className="max-w-5xl text-center text-4xl font-bold sm:text-7xl my-10 sm:my-28">
+        <h1 className="my-10 max-w-5xl text-center text-4xl font-bold sm:my-28 sm:text-7xl">
           Create{' '}
           <span className="relative whitespace-nowrap text-[#3290EE]">
             <svg
@@ -21,14 +21,14 @@ const ComingSoon: NextPage = () => {
           {/* */} in seconds
         </h1>
 
-        <h2 className="text-center text-4xl font-bold sm:text-4xl mb-8">
+        <h2 className="mb-8 text-center text-4xl font-bold sm:text-4xl">
           稍等片刻，即将上线...
         </h2>
 
         <FollowSocialMedia />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ComingSoon;
+export default ComingSoon
