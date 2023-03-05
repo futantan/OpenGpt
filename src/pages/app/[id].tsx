@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Footer from '@/components/Footer'
 import LoadingDots from '@/components/LoadingDots'
+import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
@@ -26,22 +28,15 @@ export const getServerSideProps: GetServerSideProps<
   { id: string }
 > = async ({ params }) => {
   const id = params?.id
-  const appConfig = await prisma.openGptApp.findUnique({
-    where: {
-      id,
-    },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      icon: true,
-      prompt: true,
-      demoInput: true,
-      hint: true,
-    },
-  })
+
+  if (!id) {
+    return { notFound: true } as any
+  }
+
+  const caller = appRouter.createCaller({ prisma, session: null })
+  const appConfig = await caller.app.getById(id)
+
   if (!appConfig) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return { notFound: true } as any
   }
   return {

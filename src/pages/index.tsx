@@ -1,4 +1,5 @@
 import FollowSocialMedia from '@/components/FollowSocialMedia'
+import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import {
   AcademicCapIcon,
@@ -20,9 +21,9 @@ type App = {
 }
 type PageProps = { apps: App[] }
 export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
-  const apps = await prisma.openGptApp.findMany({
-    select: { id: true, name: true, description: true, icon: true },
-  })
+  const caller = appRouter.createCaller({ prisma, session: null })
+  const apps = await caller.app.getAll()
+
   return {
     props: {
       apps,
