@@ -67,11 +67,11 @@ datasource db {
 // the models above are from the T3 stack template
 
 model OpenGptApp {
-    id          String @id @default(cuid())
-    name        String @unique
+    id          String  @id @default(cuid())
+    name        String  @unique
     description String
     icon        String // for example emoji
-    hint        String
+    hint        String?
     demoInput   String
     prompt      String
 

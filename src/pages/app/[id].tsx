@@ -49,8 +49,7 @@ export const getServerSideProps: GetServerSideProps<
 const OpenGptApp = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
-  const { id, demoInput, description, hint, icon, name, prompt } =
-    props.appConfig
+  const { id, demoInput, description, icon, name, prompt } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
   const [generatedResults, setGeneratedResults] = useState<string>('')
@@ -124,9 +123,9 @@ const OpenGptApp = (
         <p className="mt-6 text-lg leading-8 text-gray-600">{description}</p>
 
         <div className="w-full max-w-xl">
-          <div className="mt-10 flex items-center space-x-3">
+          {/* <div className="mt-10 flex items-center space-x-3">
             <p className="text-left font-medium">{hint}</p>
-          </div>
+          </div> */}
 
           <textarea
             value={userInput}
