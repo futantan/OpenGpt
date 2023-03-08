@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/react'
 import { type Session } from 'next-auth'
-import { SessionProvider } from 'next-auth/react'
+// import { SessionProvider } from 'next-auth/react'
 import { type AppType } from 'next/app'
 
 import { api } from '@/utils/api'
@@ -15,14 +15,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Analytics />
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{ duration: 2000 }}
-        />
-      </SessionProvider>
+      {/* <SessionProvider session={session}> */}
+      <Component {...pageProps} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 2000 }}
+      />
+      {/* </SessionProvider> */}
     </>
   )
 }
