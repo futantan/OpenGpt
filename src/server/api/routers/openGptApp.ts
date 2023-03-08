@@ -36,7 +36,7 @@ export const openGptAppRouter = createTRPCRouter({
         },
       })
 
-      sendMessageToDiscord({
+      await sendMessageToDiscord({
         id: v.id,
         name: v.name,
         description: v.description,
