@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Footer from '@/components/Footer'
 import LoadingDots from '@/components/LoadingDots'
+import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
@@ -52,7 +48,7 @@ const OpenGptApp = (
   const { id, demoInput, description, icon, name, prompt } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
-  const [generatedResults, setGeneratedResults] = useState<string>('')
+  const { generate, generatedResults } = useGenerateResult(userInput, prompt)
 
   const resultRef = useRef<null | HTMLDivElement>(null)
 
@@ -62,44 +58,14 @@ const OpenGptApp = (
     }
   }
 
-  const generateResult = async (e: any) => {
+  const handleRun = async (e: any) => {
     if (loading) {
       return
     }
-
-    e.preventDefault()
-    setGeneratedResults('')
     setLoading(true)
-    const response = await fetch('/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        prompt: `${prompt} {${userInput}}`,
-      }),
-    })
 
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
+    await generate(e)
 
-    // This data is a ReadableStream
-    const data = response.body
-    if (!data) {
-      return
-    }
-
-    const reader = data.getReader()
-    const decoder = new TextDecoder()
-    let done = false
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read()
-      done = doneReading
-      const chunkValue = decoder.decode(value)
-      setGeneratedResults((prev) => prev + chunkValue)
-    }
     scrollToResults()
     setLoading(false)
   }
@@ -137,7 +103,7 @@ const OpenGptApp = (
 
           <button
             className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
-            onClick={(e) => generateResult(e)}
+            onClick={(e) => handleRun(e)}
             disabled={loading}
           >
             {loading ? <LoadingDots color="white" style="large" /> : '运行'}
