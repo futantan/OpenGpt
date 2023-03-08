@@ -5,6 +5,7 @@ import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { createAppSchema } from '@/server/api/schema'
 import { api, type RouterInputs } from '@/utils/api'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -68,6 +69,10 @@ const NewApp = () => {
 
   return (
     <Layout>
+      <Link href="/" className="underline">
+        &#8592; 回到应用列表
+      </Link>
+
       <div className="bg-gray-200 pt-10">
         <div className="mx-auto min-h-screen max-w-xl ">
           <h1 className="py-10 text-center text-2xl font-semibold text-gray-900">
