@@ -1,3 +1,4 @@
+import { createAppSchema } from '@/server/api/schema'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
 import { z } from 'zod'
 
@@ -18,6 +19,17 @@ export const openGptAppRouter = createTRPCRouter({
         prompt: true,
         demoInput: true,
         hint: true,
+      },
+    })
+  }),
+  create: publicProcedure.input(createAppSchema).mutation(({ input, ctx }) => {
+    return ctx.prisma.openGptApp.create({
+      data: {
+        name: input.name,
+        description: input.description,
+        icon: input.icon,
+        demoInput: input.demoInput,
+        prompt: input.prompt,
       },
     })
   }),

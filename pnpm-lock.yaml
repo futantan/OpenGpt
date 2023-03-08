@@ -4,6 +4,7 @@ specifiers:
   '@headlessui/react': ^1.7.7
   '@headlessui/tailwindcss': ^0.1.2
   '@heroicons/react': ^2.0.13
+  '@hookform/resolvers': ^2.9.11
   '@next-auth/prisma-adapter': ^1.0.5
   '@prisma/client': ^4.9.0
   '@tailwindcss/forms': ^0.5.3
@@ -23,6 +24,7 @@ specifiers:
   autoprefixer: ^10.4.7
   clsx: ^1.2.1
   csstype: ^3.0.10
+  emoji-picker-react: ^4.4.7
   eslint: ^8.34.0
   eslint-config-next: ^13.2.1
   eventsource-parser: ^0.0.5
@@ -34,10 +36,11 @@ specifiers:
   prisma: ^4.9.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: ^7.42.0
+  react-hook-form: ^7.43.4
   react-hot-toast: ^2.4.0
   react-use-measure: ^2.1.1
   superjson: 1.9.1
+  tailwind-merge: ^1.10.0
   tailwindcss: ^3.2.4
   typescript: 4.9.4
   zod: ^3.20.6
@@ -46,6 +49,7 @@ dependencies:
   '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
   '@headlessui/tailwindcss': 0.1.2_tailwindcss@3.2.7
   '@heroicons/react': 2.0.16_react@18.2.0
+  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.4
   '@next-auth/prisma-adapter': 1.0.5_knaw3qxw4zwoiwojd3fn43zthi
   '@prisma/client': 4.11.0_prisma@4.11.0
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
@@ -57,6 +61,7 @@ dependencies:
   '@vercel/analytics': 0.1.11_react@18.2.0
   clsx: 1.2.1
   csstype: 3.1.1
+  emoji-picker-react: 4.4.7_react@18.2.0
   eventsource-parser: 0.0.5
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.20.1_nvzgbose6yf6w7ijjprgspqefi
@@ -66,6 +71,7 @@ dependencies:
   react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
   react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
   superjson: 1.9.1
+  tailwind-merge: 1.10.0
   zod: 3.21.0
 
 devDependencies:
@@ -143,6 +149,14 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.4:
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.4_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -1029,6 +1043,16 @@ packages:
   /electron-to-chromium/1.4.320:
     resolution: {integrity: sha512-h70iRscrNluMZPVICXYl5SSB+rBKo22XfuIS1ER0OQxQZpKTnFpuS6coj7wY9M/3trv7OR88rRMOlKmRvDty7Q==}
     dev: true
+
+  /emoji-picker-react/4.4.7_react@18.2.0:
+    resolution: {integrity: sha512-HcB1Fr57W6M+gLLm/W4YhbAnUQqYBUAhZBOHmPlSQODLtsDI8vecyqNIF9RrStZHfZwzUSLlpZMfY07AA6gxmA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 18.2.0
+    dev: false
 
   /emoji-regex/9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
@@ -2762,6 +2786,10 @@ packages:
       '@pkgr/utils': 2.3.1
       tslib: 2.5.0
     dev: true
+
+  /tailwind-merge/1.10.0:
+    resolution: {integrity: sha512-WFnDXSS4kFTZwjKg5/oZSGzBRU/l+qcbv5NVTzLUQvJ9yovDAP05h0F2+ZFW0Lw9EcgRoc2AfURUdZvnEFrXKg==}
+    dev: false
 
   /tailwindcss/3.2.7_postcss@8.4.21:
     resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}

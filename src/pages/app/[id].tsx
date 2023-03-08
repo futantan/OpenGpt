@@ -7,7 +7,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
-import { toast, Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 
 type AppConfig = {
   id: string
@@ -48,7 +48,7 @@ const OpenGptApp = (
   const { id, demoInput, description, icon, name, prompt } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
-  const { generate, generatedResults } = useGenerateResult(userInput, prompt)
+  const { generate, generatedResults } = useGenerateResult()
 
   const resultRef = useRef<null | HTMLDivElement>(null)
 
@@ -64,7 +64,8 @@ const OpenGptApp = (
     }
     setLoading(true)
 
-    await generate(e)
+    e.preventDefault()
+    await generate({ userInput, prompt })
 
     scrollToResults()
     setLoading(false)
@@ -108,12 +109,6 @@ const OpenGptApp = (
           >
             {loading ? <LoadingDots color="white" style="large" /> : '运行'}
           </button>
-
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            toastOptions={{ duration: 2000 }}
-          />
 
           <div className="my-10 w-full space-y-10">
             {generatedResults && (

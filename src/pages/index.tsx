@@ -59,7 +59,7 @@ const Home = (
 
         <div className="mb-2 flex justify-end">
           <Link
-            href="/coming-soon"
+            href="/app/new"
             className="rounded-full bg-green-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             创建应用

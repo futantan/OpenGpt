@@ -1,10 +1,15 @@
 import { useState } from 'react'
 
-export const useGenerateResult = (userInput: string, prompt: string) => {
+export const useGenerateResult = () => {
   const [generatedResults, setGeneratedResults] = useState<string>('')
 
-  async function generate(e: any) {
-    e.preventDefault()
+  async function generate({
+    userInput,
+    prompt,
+  }: {
+    userInput: string
+    prompt: string
+  }) {
     setGeneratedResults('')
 
     const response = await fetch('/api/generate', {
