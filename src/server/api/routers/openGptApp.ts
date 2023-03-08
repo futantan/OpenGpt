@@ -1,5 +1,6 @@
 import { createAppSchema } from '@/server/api/schema'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
+import { sendMessageToDiscord } from '@/utils/sendMessageToDiscord'
 import { z } from 'zod'
 
 export const openGptAppRouter = createTRPCRouter({
@@ -22,15 +23,24 @@ export const openGptAppRouter = createTRPCRouter({
       },
     })
   }),
-  create: publicProcedure.input(createAppSchema).mutation(({ input, ctx }) => {
-    return ctx.prisma.openGptApp.create({
-      data: {
-        name: input.name,
-        description: input.description,
-        icon: input.icon,
-        demoInput: input.demoInput,
-        prompt: input.prompt,
-      },
-    })
-  }),
+  create: publicProcedure
+    .input(createAppSchema)
+    .mutation(async ({ input, ctx }) => {
+      const v = await ctx.prisma.openGptApp.create({
+        data: {
+          name: input.name,
+          description: input.description,
+          icon: input.icon,
+          demoInput: input.demoInput,
+          prompt: input.prompt,
+        },
+      })
+
+      sendMessageToDiscord({
+        id: v.id,
+        name: v.name,
+        description: v.description,
+      })
+      return v
+    }),
 })
