@@ -4,11 +4,7 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@headlessui/tailwindcss'),
-    require('tailwindcss-animate'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@headlessui/tailwindcss')],
 }
 
 module.exports = config
