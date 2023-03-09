@@ -72,7 +72,7 @@ model OpenGptApp {
     description String
     icon        String // for example emoji
     hint        String?
-    demoInput   String
+    demoInput   String  @db.VarChar(1000)
     prompt      String  @db.VarChar(10000)
 
     createdAt DateTime @default(now())
