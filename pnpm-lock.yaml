@@ -43,6 +43,7 @@ specifiers:
   superjson: 1.9.1
   tailwind-merge: ^1.10.0
   tailwindcss: ^3.2.4
+  tailwindcss-animate: ^1.0.5
   typescript: 4.9.4
   zod: ^3.20.6
 
@@ -74,6 +75,7 @@ dependencies:
   react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
   superjson: 1.9.1
   tailwind-merge: 1.10.0
+  tailwindcss-animate: 1.0.5_tailwindcss@3.2.7
   zod: 3.21.0
 
 devDependencies:
@@ -2852,6 +2854,14 @@ packages:
 
   /tailwind-merge/1.10.0:
     resolution: {integrity: sha512-WFnDXSS4kFTZwjKg5/oZSGzBRU/l+qcbv5NVTzLUQvJ9yovDAP05h0F2+ZFW0Lw9EcgRoc2AfURUdZvnEFrXKg==}
+    dev: false
+
+  /tailwindcss-animate/1.0.5_tailwindcss@3.2.7:
+    resolution: {integrity: sha512-UU3qrOJ4lFQABY+MVADmBm+0KW3xZyhMdRvejwtXqYOL7YjHYxmuREFAZdmVG5LPe5E9CAst846SLC4j5I3dcw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      tailwindcss: 3.2.7_postcss@8.4.21
     dev: false
 
   /tailwindcss/3.2.7_postcss@8.4.21:

@@ -37,6 +37,7 @@ export interface ButtonProps {
   loading?: boolean
   disabled?: boolean
   href?: string
+  target?: string
 }
 
 export function Button({

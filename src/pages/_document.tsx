@@ -1,9 +1,9 @@
+import { SITE_DESC, SITE_TITLE } from '@/utils/constants'
 import { Head, Html, Main, NextScript } from 'next/document'
 
 export default function MyDocument() {
-  const title = 'OpenGPT - Create ChatGpt Application in seconds'
-  const description =
-    'Access a vast library of pre-built ChatGPT applications or create your own in just seconds, with OpenGPT platform'
+  const title = SITE_TITLE
+  const description = SITE_DESC
 
   return (
     <Html lang="en">
