@@ -28,26 +28,31 @@ const Home = (
 ) => {
   const { apps } = props
 
-  const currentApps = apps.map((v) => ({
-    title: v.name,
-    description: v.description,
-    href: '/app/' + v.id,
-    emoji: v.icon,
-    iconBackground: 'bg-indigo-50',
-  }))
-
   return (
-    <Layout>
-      <div className="mb-2 flex justify-end">
-        <Link
-          href="/app/new"
-          className="rounded-full bg-green-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          创建应用
-        </Link>
-      </div>
-      <AppList list={apps} />
-    </Layout>
+    <>
+      <Header />
+      <main>
+        <Layout>
+          <div className="mb-2 flex justify-end">
+            <Link
+              href="/app/new"
+              className="rounded-full bg-green-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              创建应用
+            </Link>
+          </div>
+          <AppList list={apps} />
+        </Layout>
+        <Hero />
+        <PrimaryFeatures />
+        <SecondaryFeatures />
+        <CallToAction />
+        <Testimonials />
+        <Pricing />
+        <Faqs />
+      </main>
+      <Footer />
+    </>
   )
 }
 
