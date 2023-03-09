@@ -1,9 +1,14 @@
 import AppList from '@/components/AppList'
-import Layout from '@/components/Layout'
+import { Button } from '@/components/Button'
+import { CallToAction } from '@/components/CallToAction'
+import { Footer } from '@/components/Footer'
+import { HandPointer } from '@/components/HandPointer'
+import { Header } from '@/components/Header'
+import { Hero } from '@/components/Hero'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import Link from 'next/link'
 
 type App = {
   id: string
@@ -28,26 +33,34 @@ const Home = (
 ) => {
   const { apps } = props
 
-  const currentApps = apps.map((v) => ({
-    title: v.name,
-    description: v.description,
-    href: '/app/' + v.id,
-    emoji: v.icon,
-    iconBackground: 'bg-indigo-50',
-  }))
-
   return (
-    <Layout>
-      <div className="mb-2 flex justify-end">
-        <Link
-          href="/app/new"
-          className="rounded-full bg-green-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          创建应用
-        </Link>
-      </div>
-      <AppList list={apps} />
-    </Layout>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <div className="w-full bg-slate-50 pb-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-2 flex items-center justify-end gap-4 py-10">
+              <HandPointer />
+              <Button variant="solid" color="blue" href="/app/new">
+                <div className="flex items-center gap-2">
+                  <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
+                  <span className="whitespace-nowrap">创建应用</span>
+                </div>
+              </Button>
+            </div>
+            <AppList list={apps} />
+          </div>
+        </div>
+        {/* <PrimaryFeatures /> */}
+        {/* <SecondaryFeatures /> */}
+        <CallToAction />
+        {/* <Testimonials /> */}
+        {/* <Pricing /> */}
+        {/* <Faqs /> */}
+      </main>
+      <Footer />
+    </>
   )
 }
 
