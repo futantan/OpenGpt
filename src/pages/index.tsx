@@ -1,4 +1,5 @@
 import AppList from '@/components/AppList'
+import { Header } from '@/components/Header'
 import Layout from '@/components/Layout'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
@@ -43,15 +44,15 @@ const Home = (
           </div>
           <AppList list={apps} />
         </Layout>
-        <Hero />
-        <PrimaryFeatures />
-        <SecondaryFeatures />
-        <CallToAction />
-        <Testimonials />
-        <Pricing />
-        <Faqs />
+        {/* <Hero /> */}
+        {/* <PrimaryFeatures /> */}
+        {/* <SecondaryFeatures /> */}
+        {/* <CallToAction /> */}
+        {/* <Testimonials /> */}
+        {/* <Pricing /> */}
+        {/* <Faqs /> */}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

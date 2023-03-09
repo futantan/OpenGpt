@@ -1,4 +1,4 @@
-import Button from '@/components/Button'
+import { Button } from '@/components/Button'
 import { EmojiField } from '@/components/EmojiField'
 import Layout from '@/components/Layout'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
@@ -188,19 +188,29 @@ const NewApp = () => {
               </div>
             </div>
             <div className="flex justify-end gap-3 px-4 sm:px-0">
-              <Button category="tertiary" onClick={() => router.push('/')}>
+              <Button
+                variant="solid"
+                color="white"
+                onClick={() => router.push('/')}
+              >
                 Cancel
               </Button>
 
               <Button
-                category="secondary"
+                variant="solid"
+                color="slate"
                 onClick={handleTest}
                 loading={isTesting}
               >
                 测试
               </Button>
 
-              <Button type="submit" loading={isCreating}>
+              <Button
+                variant="solid"
+                color="blue"
+                type="submit"
+                loading={isCreating}
+              >
                 创建
               </Button>
             </div>
