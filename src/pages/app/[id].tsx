@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer'
+import { Breadcrumb } from '@/components/Breadcrumb'
 import Layout from '@/components/Layout'
 import LoadingDots from '@/components/LoadingDots'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
@@ -6,7 +6,6 @@ import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -74,9 +73,8 @@ const OpenGptApp = (
 
   return (
     <Layout>
-      <Link href="/" className="underline">
-        &#8592; 回到应用列表
-      </Link>
+      <Breadcrumb pages={[{ name: '创建应用', href: '#', current: true }]} />
+
       <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">
         <Head>
           <title>{name}</title>
@@ -140,7 +138,6 @@ const OpenGptApp = (
             </div>
           </div>
         </main>
-        <Footer />
       </div>
     </Layout>
   )
