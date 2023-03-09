@@ -61,7 +61,7 @@ const NewApp = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!hasTested) {
-      toast('提前之前请进行测试', { icon: '🙇' })
+      toast('提交之前请进行测试', { icon: '🙇' })
     } else {
       mutation.mutate(data)
     }
