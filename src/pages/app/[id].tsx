@@ -73,7 +73,7 @@ const OpenGptApp = (
 
   return (
     <Layout>
-      <Breadcrumb pages={[{ name: '创建应用', href: '#', current: true }]} />
+      <Breadcrumb pages={[]} />
 
       <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">
         <Head>
