@@ -1,6 +1,6 @@
 # OpenGpt
 
-网址：https://open-gpt-app.vercel.app/
+网址：https://open-gpt.app/
 
 最近看到了非常多基于 #OpenAI 的项目。我们每个人都应该具有创建这些项目的能力，从而解决自己的问题。
 我准备创建一个 AI 平台，让所有用户都可以使用并创建 #ChatGPT 小应用。开源！
