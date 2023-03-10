@@ -5,17 +5,17 @@ export const useGenerateResult = () => {
 
   async function generate({
     userInput,
-    prompt,
+    id,
   }: {
     userInput: string
-    prompt: string
+    id: string
   }) {
     setGeneratedResults('')
 
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: `${prompt} {${userInput}}` }),
+      body: JSON.stringify({ id, userInput }),
     })
 
     if (!response.ok) {

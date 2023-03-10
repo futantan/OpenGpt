@@ -12,17 +12,20 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt } = (await req.json()) as {
-    prompt?: string
+  const { userInput, id } = (await req.json()) as {
+    userInput?: string
+    id: string
   }
 
-  if (!prompt) {
+  if (!userInput || !id) {
     return new Response('No prompt in the request', { status: 400 })
   }
 
+  const { prompt } = await fetchPrompt(id)
+
   const payload: OpenAIStreamPayload = {
     model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content: prompt }],
+    messages: [{ role: 'user', content: `${prompt} {${userInput}}` }],
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
@@ -37,3 +40,19 @@ const handler = async (req: Request): Promise<Response> => {
 }
 
 export default handler
+
+function fetchPrompt(id: string) {
+  // TODO: check if there is a better way to do this
+  return fetch(`${process.env.DEPLOY_URL}/api/app-prompt`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.PROMPT_SECRET}`,
+    },
+    method: 'POST',
+    body: JSON.stringify({ id }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data as { prompt: string }
+    })
+}

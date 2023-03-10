@@ -16,7 +16,6 @@ type AppConfig = {
   description: string
   icon: string
   demoInput: string
-  prompt: string // TODO: check if this is needed in client
   hint: string
 }
 type PageProps = { appConfig: AppConfig }
@@ -46,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<
 const OpenGptApp = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
-  const { id, demoInput, description, icon, name, prompt } = props.appConfig
+  const { id, demoInput, description, icon, name } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
   const { generate, generatedResults } = useGenerateResult()
@@ -68,7 +67,7 @@ const OpenGptApp = (
     setLoading(true)
 
     e.preventDefault()
-    await generate({ userInput, prompt })
+    await generate({ userInput, id })
     incUsage.mutate(id)
 
     scrollToResults()

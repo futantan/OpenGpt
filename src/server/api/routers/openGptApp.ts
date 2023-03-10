@@ -17,7 +17,6 @@ export const openGptAppRouter = createTRPCRouter({
         name: true,
         description: true,
         icon: true,
-        prompt: true,
         demoInput: true,
         hint: true,
       },
