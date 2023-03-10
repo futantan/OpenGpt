@@ -12,16 +12,36 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { userInput, id } = (await req.json()) as {
+  const {
+    userInput,
+    prompt: testPrompt,
+    id,
+  } = (await req.json()) as {
     userInput?: string
-    id: string
+    id?: string
+    prompt?: string
   }
 
-  if (!userInput || !id) {
-    return new Response('No prompt in the request', { status: 400 })
+  if (!testPrompt && !id) {
+    console.log('No prompt or id in the request')
+    return new Response('Invalid', { status: 400 })
   }
 
-  const { prompt } = await fetchPrompt(id)
+  if (!userInput) {
+    return new Response('Invalid user input', { status: 400 })
+  }
+
+  let prompt = ''
+  if (testPrompt) {
+    prompt = testPrompt
+  } else {
+    if (!id) {
+      console.log('No prompt or id in the request')
+      return new Response('Invalid', { status: 400 })
+    }
+    const v = await fetchPrompt(id)
+    prompt = v.prompt
+  }
 
   const payload: OpenAIStreamPayload = {
     model: 'gpt-3.5-turbo',
@@ -43,6 +63,7 @@ export default handler
 
 function fetchPrompt(id: string) {
   // TODO: check if there is a better way to do this
+  console.log('=-=========VERCEL_URL', process.env.VERCEL_URL)
   return fetch(`${process.env.DEPLOY_URL}/api/app-prompt`, {
     headers: {
       'Content-Type': 'application/json',

@@ -3,19 +3,17 @@ import { useState } from 'react'
 export const useGenerateResult = () => {
   const [generatedResults, setGeneratedResults] = useState<string>('')
 
-  async function generate({
-    userInput,
-    id,
-  }: {
-    userInput: string
-    id: string
-  }) {
+  async function generate(
+    body:
+      | { userInput: string; id: string }
+      | { userInput: string; prompt: string }
+  ) {
     setGeneratedResults('')
 
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, userInput }),
+      body: JSON.stringify(body),
     })
 
     if (!response.ok) {
@@ -38,8 +36,6 @@ export const useGenerateResult = () => {
       const chunkValue = decoder.decode(value)
       setGeneratedResults((prev) => prev + chunkValue)
     }
-    // scrollToResults()
-    // setLoading(false)
   }
 
   return { generatedResults, generate }
