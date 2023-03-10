@@ -74,6 +74,7 @@ model OpenGptApp {
     hint        String?
     demoInput   String  @db.VarChar(1000)
     prompt      String  @db.VarChar(10000)
+    usedCount   BigInt  @default(1)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
