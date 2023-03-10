@@ -193,6 +193,7 @@ const NewApp = () => {
                   Cancel
                 </Button>
                 <Button
+                  type="button"
                   variant="solid"
                   color="slate"
                   onClick={handleTest}
