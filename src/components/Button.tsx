@@ -43,6 +43,7 @@ export interface ButtonProps {
 export function Button({
   variant = 'solid',
   color = 'slate',
+  type = 'button',
   className,
   href,
   children,
