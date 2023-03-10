@@ -50,7 +50,7 @@ export default function DropDown({ vibe, setVibe }: DropDownProps) {
           key={vibe}
         >
           <div className="">
-            {vibes.map((vibeItem) => (
+            {vibes.map(vibeItem => (
               <Menu.Item key={vibeItem}>
                 {({ active }) => (
                   <button
@@ -58,13 +58,15 @@ export default function DropDown({ vibe, setVibe }: DropDownProps) {
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       vibe === vibeItem ? 'bg-gray-200' : '',
-                      'flex w-full items-center justify-between space-x-2 px-4 py-2 text-left text-sm'
+                      'flex w-full items-center justify-between space-x-2 px-4 py-2 text-left text-sm',
                     )}
                   >
                     <span>{vibeItem}</span>
-                    {vibe === vibeItem ? (
+                    {vibe === vibeItem
+                      ? (
                       <CheckIcon className="text-bold h-4 w-4" />
-                    ) : null}
+                        )
+                      : null}
                   </button>
                 )}
               </Menu.Item>

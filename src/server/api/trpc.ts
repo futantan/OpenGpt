@@ -17,9 +17,16 @@
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
 import { type Session } from 'next-auth'
 
+/**
+ * 2. INITIALIZATION
+ *
+ * This is where the tRPC API is initialized, connecting the context and transformer.
+ */
+import { TRPCError, initTRPC } from '@trpc/server'
+import superjson from 'superjson'
 import { prisma } from '@/server/db'
 
-type CreateContextOptions = {
+interface CreateContextOptions {
   session: Session | null
 }
 
@@ -47,6 +54,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+  // eslint-disable-next-line unused-imports/no-unused-vars
   const { req, res } = opts
 
   // Get the session from the server using the getServerSession wrapper function
@@ -56,14 +64,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
     session: null,
   })
 }
-
-/**
- * 2. INITIALIZATION
- *
- * This is where the tRPC API is initialized, connecting the context and transformer.
- */
-import { initTRPC, TRPCError } from '@trpc/server'
-import superjson from 'superjson'
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -97,9 +97,9 @@ export const publicProcedure = t.procedure
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.session || !ctx.session.user) {
+  if (!ctx.session || !ctx.session.user)
     throw new TRPCError({ code: 'UNAUTHORIZED' })
-  }
+
   return next({
     ctx: {
       // infers the `session` as non-nullable

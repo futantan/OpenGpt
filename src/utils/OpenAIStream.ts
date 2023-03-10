@@ -1,7 +1,7 @@
 import {
-  createParser,
   type ParsedEvent,
   type ReconnectInterval,
+  createParser,
 } from 'eventsource-parser'
 
 export type ChatGPTAgent = 'user' | 'system'
@@ -32,7 +32,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
     },
     method: 'POST',
     body: JSON.stringify(payload),
@@ -59,7 +59,8 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             const queue = encoder.encode(text)
             controller.enqueue(queue)
             counter++
-          } catch (e) {
+          }
+          catch (e) {
             // maybe parse error
             controller.error(e)
           }
@@ -70,9 +71,8 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
       // this ensures we properly read chunks and invoke an event for each SSE event stream
       const parser = createParser(onParse)
       // https://web.dev/streams/#asynchronous-iteration
-      for await (const chunk of res.body as any) {
+      for await (const chunk of res.body as any)
         parser.feed(decoder.decode(chunk))
-      }
     },
   })
 
