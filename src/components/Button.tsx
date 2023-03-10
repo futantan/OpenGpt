@@ -56,7 +56,7 @@ export function Button({
       {children}
     </Link>
   ) : (
-    <button className={className} {...props}>
+    <button className={className} type={type} {...props}>
       {props.loading ? <LoadingDots color="white" style="large" /> : children}
     </button>
   )
