@@ -1,3 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import type { SubmitHandler } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { Button } from '@/components/Button'
 import { EmojiField } from '@/components/EmojiField'
@@ -13,6 +19,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
+import { type RouterInputs, api } from '@/utils/api'
 
 type Inputs = RouterInputs['app']['create']
 
@@ -31,7 +38,7 @@ const NewApp = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(createAppSchema) })
 
-  const handleTest = async (e: any) => {
+  const handleTest = async () => {
     if (isTesting) {
       return
     }
@@ -53,7 +60,7 @@ const NewApp = () => {
   }
 
   const mutation = api.app.create.useMutation({
-    onSuccess: (data, variables, context) => {
+    onSuccess: (data) => {
       router.push(`/app/${data.id}`)
     },
     onError: () => {
@@ -66,8 +73,8 @@ const NewApp = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!hasTested) {
       toast(t('test_before_submit'), { icon: '🙇' })
-    } else {
-      mutation.mutate(data)
+    } else { 
+      mutation.mutate(data) 
     }
   }
 
@@ -98,7 +105,7 @@ const NewApp = () => {
                         render={({ field }) => (
                           <EmojiField
                             value={field.value}
-                            onChange={(value) => field.onChange(value)}
+                            onChange={value => field.onChange(value)}
                           />
                         )}
                       />

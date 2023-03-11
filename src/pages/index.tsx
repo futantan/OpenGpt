@@ -1,3 +1,5 @@
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import AppList from '@/components/AppList'
 import { Button } from '@/components/Button'
 import { CallToAction } from '@/components/CallToAction'
@@ -12,7 +14,8 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-type App = {
+
+interface App {
   id: string
   name: string
   description: string
@@ -35,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 }
 
 const Home = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
   const { apps } = props
   console.log(props)

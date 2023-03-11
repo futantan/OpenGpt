@@ -1,3 +1,7 @@
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import Head from 'next/head'
+import { useRef, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import Layout from '@/components/Layout'
 import LoadingDots from '@/components/LoadingDots'
@@ -12,7 +16,8 @@ import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 
-type AppConfig = {
+
+interface AppConfig {
   id: string
   name: string
   description: string
@@ -20,7 +25,7 @@ type AppConfig = {
   demoInput: string
   hint: string
 }
-type PageProps = { appConfig: AppConfig }
+interface PageProps { appConfig: AppConfig }
 export const getServerSideProps: GetServerSideProps<
   PageProps,
   { id: string }
@@ -28,15 +33,20 @@ export const getServerSideProps: GetServerSideProps<
   const id = params?.id
 
   if (!id) {
-    return { notFound: true } as any
+    return {
+      notFound: true,
+    } as any
   }
 
   const caller = appRouter.createCaller({ prisma, session: null })
   const appConfig = await caller.app.getById(id)
 
   if (!appConfig) {
-    return { notFound: true } as any
+    return {
+      notFound: true,
+    } as any
   }
+
   return {
     props: {
       appConfig,
@@ -45,9 +55,9 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 const OpenGptApp = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
-  const { id, demoInput, description, icon, name } = props.appConfig
+  const { id, demoInput, description, name } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
   const { generate, generatedResults } = useGenerateResult()
@@ -59,7 +69,9 @@ const OpenGptApp = (
 
   const scrollToResults = () => {
     if (resultRef.current !== null) {
-      resultRef.current.scrollIntoView({ behavior: 'smooth' })
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -67,6 +79,7 @@ const OpenGptApp = (
     if (loading) {
       return
     }
+
     setLoading(true)
 
     e.preventDefault()
@@ -101,7 +114,7 @@ const OpenGptApp = (
 
             <textarea
               value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+              onChange={e => setUserInput(e.target.value)}
               rows={4}
               className="my-5 w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
               placeholder={demoInput}
@@ -109,7 +122,7 @@ const OpenGptApp = (
 
             <button
               className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
-              onClick={(e) => handleRun(e)}
+              onClick={e => handleRun(e)}
               disabled={loading}
             >
               {loading ? <LoadingDots color="white" style="large" /> : t('run')}
