@@ -13,11 +13,11 @@ interface AppListProps {
 const AppList = (props: AppListProps) => {
   const { list } = props
 
-  const currentApps = list.map(v => ({
+  const currentApps = list.map((v) => ({
     id: v.id,
     title: v.name,
     description: v.description,
-    href: `/app/${v.id}`,
+    href: '/app/' + v.id,
     emoji: v.icon,
     iconBackground: 'bg-indigo-50',
   }))
@@ -27,7 +27,7 @@ const AppList = (props: AppListProps) => {
       role="list"
       className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
     >
-      {currentApps.map(app => (
+      {currentApps.map((app) => (
         <li
           key={app.id}
           className="col-span-1 flex flex-col justify-between divide-y divide-gray-200 rounded-lg bg-white text-center shadow"

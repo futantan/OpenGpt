@@ -5,8 +5,8 @@ export const useGenerateResult = () => {
 
   async function generate(
     body:
-    | { userInput: string; id: string }
-    | { userInput: string; prompt: string },
+      | { userInput: string; id: string }
+      | { userInput: string; prompt: string }
   ) {
     setGeneratedResults('')
 
@@ -34,7 +34,7 @@ export const useGenerateResult = () => {
       const { value, done: doneReading } = await reader.read()
       done = doneReading
       const chunkValue = decoder.decode(value)
-      setGeneratedResults(prev => prev + chunkValue)
+      setGeneratedResults((prev) => prev + chunkValue)
     }
   }
 

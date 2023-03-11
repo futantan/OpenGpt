@@ -19,7 +19,7 @@ export const Breadcrumb = (props: {
           </div>
         </li>
 
-        {props.pages.map(page => (
+        {props.pages.map((page) => (
           <li key={page.name}>
             <div className="flex items-center">
               <ChevronRightIcon

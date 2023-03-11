@@ -1,7 +1,7 @@
-import { z } from 'zod'
 import { createAppSchema } from '@/server/api/schema'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
 import { sendMessageToDiscord } from '@/utils/sendMessageToDiscord'
+import { z } from 'zod'
 
 export const openGptAppRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
