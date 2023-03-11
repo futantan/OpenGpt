@@ -1,7 +1,6 @@
-import {
-  OpenAIStream,
-  type OpenAIStreamPayload,
-} from '../../utils/OpenAIStream'
+import { GenerateApiInput } from '@/utils/types'
+import { NextRequest } from 'next/server'
+import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing env var from OpenAI')
@@ -11,16 +10,12 @@ export const config = {
   runtime: 'edge',
 }
 
-const handler = async (req: Request): Promise<Response> => {
+const handler = async (req: NextRequest): Promise<Response> => {
   const {
     userInput,
     prompt: testPrompt,
     id,
-  } = (await req.json()) as {
-    userInput?: string
-    id?: string
-    prompt?: string
-  }
+  } = (await req.json()) as GenerateApiInput
 
   if (!testPrompt && !id) {
     console.log('No prompt or id in the request')

@@ -1,13 +1,13 @@
+import { toast } from 'react-hot-toast'
+import { GenerateApiInput } from '@/utils/types'
 import { useState } from 'react'
+import { RATE_LIMIT_COUNT } from '@/utils/constants'
 
 export const useGenerateResult = () => {
   const [generatedResults, setGeneratedResults] = useState<string>('')
 
-  async function generate(
-    body:
-      | { userInput: string; id: string }
-      | { userInput: string; prompt: string }
-  ) {
+  async function generate(body: GenerateApiInput) {
+    // TODO: load key
     setGeneratedResults('')
 
     const response = await fetch('/api/generate', {
@@ -17,7 +17,15 @@ export const useGenerateResult = () => {
     })
 
     if (!response.ok) {
-      throw new Error(response.statusText)
+      if (response.status === 429) {
+        toast(
+          `每个用户每天最多使用 ${RATE_LIMIT_COUNT} 次，更多用量正在支持中`,
+          { icon: '🔴' }
+        )
+        return
+      } else {
+        throw new Error(response.statusText)
+      }
     }
 
     // This data is a ReadableStream
