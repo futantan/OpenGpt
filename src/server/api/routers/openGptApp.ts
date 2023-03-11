@@ -23,6 +23,19 @@ export const openGptAppRouter = createTRPCRouter({
       },
     })
   }),
+  getTopNAppIds: publicProcedure
+    .input(z.number())
+    .query(({ input: count, ctx }) => {
+      return ctx.prisma.openGptApp.findMany({
+        orderBy: {
+          usedCount: 'desc',
+        },
+        take: count,
+        select: {
+          id: true,
+        },
+      })
+    }),
   incUsage: publicProcedure
     .input(z.string())
     .mutation(async ({ input: appId, ctx }) => {

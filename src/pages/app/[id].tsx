@@ -5,7 +5,11 @@ import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { api } from '@/utils/api'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetServerSidePropsType,
+} from 'next'
 import Head from 'next/head'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -19,7 +23,17 @@ type AppConfig = {
   hint: string
 }
 type PageProps = { appConfig: AppConfig }
-export const getServerSideProps: GetServerSideProps<
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const caller = appRouter.createCaller({ prisma, session: null })
+  const idObjArr = await caller.app.getTopNAppIds(30)
+  return {
+    paths: idObjArr.map((v) => ({ params: { id: v.id } })),
+    fallback: 'blocking',
+  }
+}
+
+export const getStaticProps: GetStaticProps<
   PageProps,
   { id: string }
 > = async ({ params }) => {
@@ -43,7 +57,7 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 const OpenGptApp = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getStaticProps>
 ) => {
   const { id, demoInput, description, icon, name } = props.appConfig
   const [loading, setLoading] = useState(false)
