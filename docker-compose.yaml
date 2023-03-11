@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  mysql:
+    image: mysql/mysql-server:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=open-gpt
+    ports:
+      - target: 3306
+        published: 3306
+        mode: host
+
+
