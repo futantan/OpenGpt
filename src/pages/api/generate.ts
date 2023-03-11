@@ -1,6 +1,7 @@
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
+import { HOST_URL } from '@/utils/constants'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing env var from OpenAI')
@@ -57,9 +58,7 @@ const handler = async (req: NextRequest): Promise<Response> => {
 export default handler
 
 function fetchPrompt(id: string) {
-  // TODO: check if there is a better way to do this
-  console.log('=-=========VERCEL_URL', process.env.VERCEL_URL)
-  return fetch(`${process.env.DEPLOY_URL}/api/app-prompt`, {
+  return fetch(`${HOST_URL}/api/app-prompt`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${process.env.PROMPT_SECRET}`,

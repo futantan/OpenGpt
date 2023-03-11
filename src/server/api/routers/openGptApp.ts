@@ -1,5 +1,6 @@
 import { createAppSchema } from '@/server/api/schema'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
+import { revalidateHome } from '@/utils/revalidateHome'
 import { sendMessageToDiscord } from '@/utils/sendMessageToDiscord'
 import { z } from 'zod'
 
@@ -52,6 +53,9 @@ export const openGptAppRouter = createTRPCRouter({
         name: v.name,
         description: v.description,
       })
+
+      // no need to wait
+      revalidateHome()
       return v
     }),
 })

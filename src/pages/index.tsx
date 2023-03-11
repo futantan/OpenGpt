@@ -1,5 +1,5 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
 import type { ChangeEventHandler } from 'react'
 import { useRef, useState } from 'react'
 import AppList from '@/components/AppList'
@@ -19,7 +19,8 @@ type App = {
   icon: string
 }
 type PageProps = { apps: App[] }
-export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
+
+export const getStaticProps: GetStaticProps<PageProps> = async () => {
   const caller = appRouter.createCaller({ prisma, session: null })
   const apps = await caller.app.getAll()
 
@@ -27,12 +28,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
     props: {
       apps,
     },
+    revalidate: 10, // In seconds
   }
 }
 
-const Home = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const isComposing = useRef(false)
   const [searchValue, setSearchValue] = useState('')
 

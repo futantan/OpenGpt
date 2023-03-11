@@ -5,6 +5,7 @@ import Layout from '@/components/Layout'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { createAppSchema } from '@/server/api/schema'
 import { api, type RouterInputs } from '@/utils/api'
+import { isDev } from '@/utils/isDev'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -60,7 +61,7 @@ const NewApp = () => {
   const { isLoading: isCreating } = mutation
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (!hasTested) {
+    if (!isDev && !hasTested) {
       toast('提交之前请进行测试', { icon: '🙇' })
     } else {
       mutation.mutate(data)
