@@ -1,3 +1,4 @@
+import { MAX_TOKENS } from './../../utils/constants'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
@@ -46,7 +47,7 @@ const handler = async (req: NextRequest): Promise<Response> => {
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 1000,
+    max_tokens: MAX_TOKENS,
     stream: true,
     n: 1,
   }
