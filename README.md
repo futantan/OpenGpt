@@ -1,38 +1,39 @@
 # OpenGpt
 
-网址：https://open-gpt.app/
+English | [简体中文](./README-zh_CN.md)
 
-最近看到了非常多基于 #OpenAI 的项目。我们每个人都应该具有创建这些项目的能力，从而解决自己的问题。
-我准备创建一个 AI 平台，让所有用户都可以使用并创建 #ChatGPT 小应用。开源！
-会在 [Twitter](https://twitter.com/EclipsePrayer) 上实时推送进展，欢迎点赞关注!
+Website: https://open-gpt.app/
+
+Recently, I have seen many projects based on #OpenAI. Each of us should have the ability to create these projects to solve our own problems.
+I am preparing to create an AI platform that allows all users to use and create #ChatGPT small applications. Open source!
+Progress will be tweeted in real time on [Twitter](https://twitter.com/EclipsePrayer), please like and follow!
 
 [![OpenGpt](./public/screenshot.png)](https://twitter.com/EclipsePrayer)
 
+## Planned Features
 
-## 计划的功能
+- [x] Users can directly run each App
+  - ✅ On March 4th, 2023, the first App "Free Style Rap Lyrics Generator" was launched
+  - ✅ On March 5th, 2023, a total of six Apps were launched. The bricks are enough and jade is needed.
+- [x] Users can create their own Apps 🧑🏻‍💻 In development
+  - ✅ As of March 8th, 2021, users can create their own Apps. Phase one plan completed.
+- On the first day of launch, users had already created over a hundred Apps! 🤯
 
-- [x] 用户可以直接运行每一个 App
-  - ✅ 2023-03-04 上线第一个 App “Free Style 说唱歌词生成器”
-  - ✅ 2023-03-05 上线共 6 款 App，砖已足够，需要引玉
-- [x] 用户可以创建自己的 App 🧑🏻‍💻 开发中
-  - ✅ 2021-03-08 用户可以创建自己的 App，第一阶段计划完成
-- 上线第一天，用户已经创建了 100 多个 App！🤯
+Next phase plan:
 
-下一阶段计划
+- [ ] Sort out some obviously unusable Apps and hide them from the homepage display
+- [ ] Add user login function
+- [ ] Can like and sort by likes
+- [ ] Can collect and create your own list of App applications
+- [ ] Add tags for Apps
+- [ ] Can create private Apps only for oneself
+- [ ] i18n internationalization support
 
-- [ ] 整理一些明显不好用的 App，在首页隐藏不显示
-- [ ] 加入用户登录功能
-- [ ] 可以点赞，并可以据此排序
-- [ ] 可以收藏，创建属于自己的 App 应用列表
-- [ ] 为 App 添加标签
-- [ ] 可以创建只属于自己的私有 App
-- [ ] i18n 国际化支持
+## Contribution
 
+- How to [contribute](CONTRIBUTING.md)
+- Join our Discord (https://discord.gg/84J7aMyyCG) to discuss the future of this product together.
 
-## 共同建设
-
-加入 [Discord](https://discord.gg/84J7aMyyCG)，我们一起讨论产品未来
-
-## 交个朋友 或 鼓励一下
+## Make friends or encourage
 
 ![wechat](./public/wechat.png)
