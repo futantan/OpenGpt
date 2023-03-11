@@ -34,8 +34,7 @@ const handler = async (req: Request): Promise<Response> => {
   let prompt = ''
   if (testPrompt) {
     prompt = testPrompt
-  }
-  else {
+  } else {
     if (!id) {
       console.log('No prompt or id in the request')
       return new Response('Invalid', { status: 400 })
@@ -68,12 +67,12 @@ function fetchPrompt(id: string) {
   return fetch(`${process.env.DEPLOY_URL}/api/app-prompt`, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.PROMPT_SECRET}`,
+      Authorization: `Bearer ${process.env.PROMPT_SECRET}`,
     },
     method: 'POST',
     body: JSON.stringify({ id }),
   })
-    .then(res => res.json())
+    .then((res) => res.json())
     .then((data) => {
       return data as { prompt: string }
     })

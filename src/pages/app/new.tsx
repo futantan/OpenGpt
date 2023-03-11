@@ -1,16 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import type { SubmitHandler } from 'react-hook-form'
-import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { Button } from '@/components/Button'
 import { EmojiField } from '@/components/EmojiField'
 import Layout from '@/components/Layout'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { createAppSchema } from '@/server/api/schema'
-import { type RouterInputs, api } from '@/utils/api'
+import { api, type RouterInputs } from '@/utils/api'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 
 type Inputs = RouterInputs['app']['create']
 
@@ -28,7 +27,7 @@ const NewApp = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(createAppSchema) })
 
-  const handleTest = async () => {
+  const handleTest = async (e: any) => {
     if (isTesting) {
       return
     }
@@ -50,7 +49,7 @@ const NewApp = () => {
   }
 
   const mutation = api.app.create.useMutation({
-    onSuccess: (data) => {
+    onSuccess: (data, variables, context) => {
       router.push(`/app/${data.id}`)
     },
     onError: () => {
@@ -63,9 +62,9 @@ const NewApp = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!hasTested) {
       toast('提交之前请进行测试', { icon: '🙇' })
+    } else {
+      mutation.mutate(data)
     }
-
-    else { mutation.mutate(data) }
   }
 
   return (
@@ -93,7 +92,7 @@ const NewApp = () => {
                         render={({ field }) => (
                           <EmojiField
                             value={field.value}
-                            onChange={value => field.onChange(value)}
+                            onChange={(value) => field.onChange(value)}
                           />
                         )}
                       />

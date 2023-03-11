@@ -8,7 +8,7 @@ const LoadingDots = ({
   style: string
 }) => {
   return (
-    <span className={style === 'small' ? styles.loading2 : styles.loading}>
+    <span className={style == 'small' ? styles.loading2 : styles.loading}>
       <span style={{ backgroundColor: color }} />
       <span style={{ backgroundColor: color }} />
       <span style={{ backgroundColor: color }} />
