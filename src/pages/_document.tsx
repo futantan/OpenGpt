@@ -1,5 +1,5 @@
-import { SITE_DESC, SITE_TITLE } from '@/utils/constants'
 import { Head, Html, Main, NextScript } from 'next/document'
+import { SITE_DESC, SITE_TITLE } from '@/utils/constants'
 
 export default function MyDocument() {
   const title = SITE_TITLE

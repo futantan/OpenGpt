@@ -1,3 +1,5 @@
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import AppList from '@/components/AppList'
 import { Button } from '@/components/Button'
 import { CallToAction } from '@/components/CallToAction'
@@ -7,16 +9,14 @@ import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-type App = {
+interface App {
   id: string
   name: string
   description: string
   icon: string
 }
-type PageProps = { apps: App[] }
+interface PageProps { apps: App[] }
 export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
   const caller = appRouter.createCaller({ prisma, session: null })
   const apps = await caller.app.getAll()
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
 }
 
 const Home = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) => {
   const { apps } = props
 
