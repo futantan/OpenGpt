@@ -71,8 +71,9 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
       // this ensures we properly read chunks and invoke an event for each SSE event stream
       const parser = createParser(onParse)
       // https://web.dev/streams/#asynchronous-iteration
-      for await (const chunk of res.body as any)
+      for await (const chunk of res.body as any) {
         parser.feed(decoder.decode(chunk))
+      }
     },
   })
 

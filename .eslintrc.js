@@ -12,6 +12,7 @@ module.exports = {
   },
   rules: {
     'no-console': 'off',
+    'curly': ['error', 'all'],
     'jsx-quotes': [
       'error',
       'prefer-double',

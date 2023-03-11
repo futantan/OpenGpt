@@ -16,13 +16,15 @@ export const useGenerateResult = () => {
       body: JSON.stringify(body),
     })
 
-    if (!response.ok)
+    if (!response.ok) {
       throw new Error(response.statusText)
+    }
 
     // This data is a ReadableStream
     const data = response.body
-    if (!data)
+    if (!data) {
       return
+    }
 
     const reader = data.getReader()
     const decoder = new TextDecoder()

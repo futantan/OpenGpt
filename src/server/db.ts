@@ -11,5 +11,6 @@ export const prisma
       env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   })
 
-if (env.NODE_ENV !== 'production')
+if (env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma
+}

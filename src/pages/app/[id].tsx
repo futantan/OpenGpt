@@ -25,14 +25,20 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ params }) => {
   const id = params?.id
 
-  if (!id)
-    return { notFound: true } as any
+  if (!id) {
+    return {
+      notFound: true,
+    } as any
+  }
 
   const caller = appRouter.createCaller({ prisma, session: null })
   const appConfig = await caller.app.getById(id)
 
-  if (!appConfig)
-    return { notFound: true } as any
+  if (!appConfig) {
+    return {
+      notFound: true,
+    } as any
+  }
 
   return {
     props: {
@@ -54,13 +60,17 @@ const OpenGptApp = (
   const resultRef = useRef<null | HTMLDivElement>(null)
 
   const scrollToResults = () => {
-    if (resultRef.current !== null)
-      resultRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (resultRef.current !== null) {
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
   }
 
   const handleRun = async (e: any) => {
-    if (loading)
+    if (loading) {
       return
+    }
 
     setLoading(true)
 

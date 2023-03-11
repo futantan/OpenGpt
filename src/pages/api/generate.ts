@@ -3,8 +3,9 @@ import {
   type OpenAIStreamPayload,
 } from '../../utils/OpenAIStream'
 
-if (!process.env.OPENAI_API_KEY)
+if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing env var from OpenAI')
+}
 
 export const config = {
   runtime: 'edge',
@@ -26,8 +27,9 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response('Invalid', { status: 400 })
   }
 
-  if (!userInput)
+  if (!userInput) {
     return new Response('Invalid user input', { status: 400 })
+  }
 
   let prompt = ''
   if (testPrompt) {

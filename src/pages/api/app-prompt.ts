@@ -10,10 +10,12 @@ const handler: NextApiHandler = async (req, res) => {
       where: { id: req.body.id },
       select: { prompt: true },
     })
-    if (!app)
+
+    if (!app) {
       return res.status(400).end()
-    else
-      return res.status(200).json({ prompt: app.prompt })
+    }
+
+    else { return res.status(200).json({ prompt: app.prompt }) }
   }
   else {
     return res.status(401).end()

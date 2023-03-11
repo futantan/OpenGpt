@@ -29,8 +29,9 @@ const NewApp = () => {
   } = useForm<Inputs>({ resolver: zodResolver(createAppSchema) })
 
   const handleTest = async () => {
-    if (isTesting)
+    if (isTesting) {
       return
+    }
 
     const allValid = await trigger()
     if (allValid) {
@@ -60,10 +61,11 @@ const NewApp = () => {
   const { isLoading: isCreating } = mutation
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (!hasTested)
+    if (!hasTested) {
       toast('提交之前请进行测试', { icon: '🙇' })
-    else
-      mutation.mutate(data)
+    }
+
+    else { mutation.mutate(data) }
   }
 
   return (
