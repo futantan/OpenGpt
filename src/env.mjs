@@ -61,7 +61,7 @@ const merged = server.merge(client)
 // eslint-disable-next-line import/no-mutable-exports
 let env = /** @type {MergedOutput} */ (process.env)
 
-if (!!process.env.SKIP_ENV_VALIDATION == false) {
+if (!!process.env.SKIP_ENV_VALIDATION === false) {
   const isServer = typeof window === 'undefined'
   const parsed = /** @type {MergedSafeParseReturn} */ (
     isServer
