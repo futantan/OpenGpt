@@ -32,6 +32,10 @@ export async function OpenAIStream(
 
   let counter = 0
 
+  if (userKey) {
+    console.log('user is using custom openai key')
+  }
+
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
