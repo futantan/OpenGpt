@@ -1,4 +1,3 @@
-import { isDev } from './isDev'
 export const SITE_TITLE = 'OpenGPT - Create ChatGpt Application in seconds'
 export const SITE_DESC =
   '立即使用海量的 ChatGPT 应用，或在几秒钟内创建属于自己的应用。'
@@ -6,8 +5,3 @@ export const SITE_DESC =
 
 export const MAX_TOKENS = 500
 export const RATE_LIMIT_COUNT = 10
-
-export const HOST_URL = isDev
-  ? 'http://localhost:3000'
-  : `https://${process.env.VERCEL_URL}` // can only be used on the server
-console.log('HOST_URL ---------->', HOST_URL)
