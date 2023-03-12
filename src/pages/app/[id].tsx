@@ -13,6 +13,7 @@ import type {
 import Head from 'next/head'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { EmojiLinkIcon } from '@/components/EmojiLinkIcon'
 
 type AppConfig = {
   id: string
@@ -95,7 +96,7 @@ const OpenGptApp = (
       <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">
         <Head>
           <title>{name}</title>
-          <link rel="icon" href="/favicon.ico" />
+          <EmojiLinkIcon emoji={icon} />
         </Head>
 
         <main className="mt-12 flex w-full flex-1 flex-col items-center justify-center px-4 text-center sm:mt-20">
