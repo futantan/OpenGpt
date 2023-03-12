@@ -1,10 +1,8 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import { useTranslation } from 'react-i18next'
-
 export default function MyDocument() {
   const title = 'OpenGPT - Create ChatGpt Application in seconds'
-  const { t } = useTranslation('common')
-  const description = t('site_desc')
+  const description =
+    '立即使用海量的 ChatGPT 应用，或在几秒钟内创建属于自己的应用。'
 
   return (
     <Html lang="en">
