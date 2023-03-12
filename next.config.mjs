@@ -17,8 +17,7 @@ const config = {
    */
   i18n: {
     defaultLocale: 'zh',
-    // locales: ['en', 'zh', 'zh-TW', 'ja', 'de'],
-    locales: ['zh'],
+    locales: ['en', 'zh', 'zh-TW', 'ja', 'de'],
   },
 }
 export default config
