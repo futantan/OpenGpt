@@ -252,7 +252,7 @@ export default NewApp
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'zh', ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   }
 }

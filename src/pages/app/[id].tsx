@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'zh', ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
       appConfig,
     },
   }

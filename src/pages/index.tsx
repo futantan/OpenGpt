@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'zh', ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
       apps,
     },
     revalidate: 120, // In seconds
