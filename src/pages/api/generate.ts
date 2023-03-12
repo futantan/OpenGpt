@@ -1,8 +1,8 @@
-import { MAX_TOKENS } from './../../utils/constants'
+import { HOST_URL } from '@/utils/constants'
+import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
-import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
-import { HOST_URL } from '@/utils/constants'
+import { MAX_TOKENS } from './../../utils/constants'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing env var from OpenAI')
@@ -17,6 +17,7 @@ const handler = async (req: NextRequest): Promise<Response> => {
     userInput,
     prompt: testPrompt,
     id,
+    userKey,
   } = (await req.json()) as GenerateApiInput
 
   if (!testPrompt && !id) {
@@ -52,7 +53,7 @@ const handler = async (req: NextRequest): Promise<Response> => {
     n: 1,
   }
 
-  const stream = await OpenAIStream(payload)
+  const stream = await OpenAIStream(payload, userKey)
   return new Response(stream)
 }
 

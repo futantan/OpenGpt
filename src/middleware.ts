@@ -1,4 +1,6 @@
+import { checkOpenApiKeyFormat } from '@/utils/checkOpenApiKeyFormat'
 import { RATE_LIMIT_COUNT } from '@/utils/constants'
+import { GenerateApiInput } from '@/utils/types'
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
@@ -18,22 +20,21 @@ export default async function middleware(
   request: NextRequest,
   event: NextFetchEvent
 ): Promise<Response | undefined> {
-  // const { userKey } = (await request.json()) as GenerateApiInput
+  const { userKey } = (await request.json()) as GenerateApiInput
 
-  // if (userKey) {
-  //   if (checkOpenApiKeyFormat(userKey)) {
-  //     // use user's open api key
-  //     return NextResponse.next()
-  //   } else {
-  //     // license key
-  //     const isValidatedLicense = await validateLicenseKey(userKey)
-  //     if (!isValidatedLicense) {
-  //       return beyoundRatelimit(request)
-  //     }
-
-  //     return NextResponse.next()
-  //   }
-  // }
+  if (userKey) {
+    if (checkOpenApiKeyFormat(userKey)) {
+      // use user's open api key
+      return NextResponse.next()
+    } else {
+      // // license key
+      // const isValidatedLicense = await validateLicenseKey(userKey)
+      // if (!isValidatedLicense) {
+      //   return beyoundRatelimit(request)
+      // }
+      // return NextResponse.next()
+    }
+  }
 
   if (isDev) {
     return NextResponse.next()

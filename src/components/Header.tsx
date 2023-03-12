@@ -49,7 +49,7 @@ function MobileNavIcon({ open }: { open: boolean }) {
 }
 
 const HEADER_LINKS: Array<{ href: string; label: string }> = [
-  // { href: '#features', label: '功能' },
+  { href: '/usage', label: 'Usage' },
   // { href: '#testimonials', label: '用户评价' },
   // { href: '#pricing', label: '价格' },
 ]

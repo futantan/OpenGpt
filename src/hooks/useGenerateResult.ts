@@ -1,19 +1,21 @@
-import { toast } from 'react-hot-toast'
-import { GenerateApiInput } from '@/utils/types'
-import { useState } from 'react'
 import { RATE_LIMIT_COUNT } from '@/utils/constants'
+import { loadOpenAIKey } from '@/utils/localData'
+import { GenerateApiInput } from '@/utils/types'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 
 export const useGenerateResult = () => {
+  const router = useRouter()
   const [generatedResults, setGeneratedResults] = useState<string>('')
 
   async function generate(body: GenerateApiInput) {
-    // TODO: load key
     setGeneratedResults('')
 
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ ...body, userKey: loadOpenAIKey() }),
     })
 
     if (!response.ok) {
@@ -22,6 +24,7 @@ export const useGenerateResult = () => {
           `每个用户每天最多使用 ${RATE_LIMIT_COUNT} 次，更多用量正在支持中`,
           { icon: '🔴' }
         )
+        router.push('/usage')
         return
       } else {
         throw new Error(response.statusText)
