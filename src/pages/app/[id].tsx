@@ -1,7 +1,3 @@
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import Head from 'next/head'
-import { useRef, useState } from 'react'
-import { toast } from 'react-hot-toast'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import Layout from '@/components/Layout'
 import LoadingDots from '@/components/LoadingDots'
@@ -9,15 +5,18 @@ import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { api } from '@/utils/api'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetServerSidePropsType,
+} from 'next'
 import Head from 'next/head'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-
-interface AppConfig {
+type AppConfig = {
   id: string
   name: string
   description: string
@@ -25,39 +24,45 @@ interface AppConfig {
   demoInput: string
   hint: string
 }
-interface PageProps { appConfig: AppConfig }
-export const getServerSideProps: GetServerSideProps<
+type PageProps = { appConfig: AppConfig }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const caller = appRouter.createCaller({ prisma, session: null })
+  const idObjArr = await caller.app.getTopNAppIds(30)
+  return {
+    paths: idObjArr.map((v) => ({ params: { id: v.id } })),
+    fallback: 'blocking',
+  }
+}
+
+export const getStaticProps: GetStaticProps<
   PageProps,
   { id: string }
-> = async ({ params }) => {
+> = async ({ params, locale }) => {
   const id = params?.id
 
   if (!id) {
-    return {
-      notFound: true,
-    } as any
+    return { notFound: true } as any
   }
 
   const caller = appRouter.createCaller({ prisma, session: null })
   const appConfig = await caller.app.getById(id)
 
   if (!appConfig) {
-    return {
-      notFound: true,
-    } as any
+    return { notFound: true } as any
   }
-
   return {
     props: {
+      ...(await serverSideTranslations(locale, ['common'])),
       appConfig,
     },
   }
 }
 
 const OpenGptApp = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getStaticProps>
 ) => {
-  const { id, demoInput, description, name } = props.appConfig
+  const { id, demoInput, description, icon, name } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
   const { generate, generatedResults } = useGenerateResult()
@@ -69,9 +74,7 @@ const OpenGptApp = (
 
   const scrollToResults = () => {
     if (resultRef.current !== null) {
-      resultRef.current.scrollIntoView({
-        behavior: 'smooth',
-      })
+      resultRef.current.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -79,7 +82,6 @@ const OpenGptApp = (
     if (loading) {
       return
     }
-
     setLoading(true)
 
     e.preventDefault()
@@ -114,7 +116,7 @@ const OpenGptApp = (
 
             <textarea
               value={userInput}
-              onChange={e => setUserInput(e.target.value)}
+              onChange={(e) => setUserInput(e.target.value)}
               rows={4}
               className="my-5 w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
               placeholder={demoInput}
@@ -122,7 +124,7 @@ const OpenGptApp = (
 
             <button
               className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
-              onClick={e => handleRun(e)}
+              onClick={(e) => handleRun(e)}
               disabled={loading}
             >
               {loading ? <LoadingDots color="white" style="large" /> : t('run')}
@@ -163,11 +165,3 @@ const OpenGptApp = (
 }
 
 export default OpenGptApp
-
-export const getStaticProps = async ({ locale }: { locale: string }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  }
-}

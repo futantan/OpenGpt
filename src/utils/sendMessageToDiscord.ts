@@ -1,3 +1,4 @@
+import { isDev } from '@/utils/isDev'
 import axios from 'axios'
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
@@ -7,6 +8,9 @@ export function sendMessageToDiscord(v: {
   name: string
   description: string
 }) {
+  if (isDev) {
+    return
+  }
   if (DISCORD_WEBHOOK_URL) {
     return axios.post(DISCORD_WEBHOOK_URL, {
       username: 'OpenGpt 机器人',

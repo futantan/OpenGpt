@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
 import FollowSocialMedia from '@/components/FollowSocialMedia'
+import type { NextPage } from 'next'
 
 const ComingSoon: NextPage = () => {
   return (

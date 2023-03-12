@@ -1,7 +1,7 @@
 import {
+  createParser,
   type ParsedEvent,
   type ReconnectInterval,
-  createParser,
 } from 'eventsource-parser'
 
 export type ChatGPTAgent = 'user' | 'system'
@@ -23,7 +23,10 @@ export interface OpenAIStreamPayload {
   n: number
 }
 
-export async function OpenAIStream(payload: OpenAIStreamPayload) {
+export async function OpenAIStream(
+  payload: OpenAIStreamPayload,
+  userKey?: string
+) {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
 
@@ -32,7 +35,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
+      Authorization: `Bearer ${userKey || process.env.OPENAI_API_KEY || ''}`,
     },
     method: 'POST',
     body: JSON.stringify(payload),
@@ -59,8 +62,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
             const queue = encoder.encode(text)
             controller.enqueue(queue)
             counter++
-          }
-          catch (e) {
+          } catch (e) {
             // maybe parse error
             controller.error(e)
           }

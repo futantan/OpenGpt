@@ -1,7 +1,8 @@
-import { z } from 'zod'
 import { createAppSchema } from '@/server/api/schema'
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc'
+import { revalidateHome } from '@/utils/revalidateHome'
 import { sendMessageToDiscord } from '@/utils/sendMessageToDiscord'
+import { z } from 'zod'
 
 export const openGptAppRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -22,6 +23,19 @@ export const openGptAppRouter = createTRPCRouter({
       },
     })
   }),
+  getTopNAppIds: publicProcedure
+    .input(z.number())
+    .query(({ input: count, ctx }) => {
+      return ctx.prisma.openGptApp.findMany({
+        orderBy: {
+          usedCount: 'desc',
+        },
+        take: count,
+        select: {
+          id: true,
+        },
+      })
+    }),
   incUsage: publicProcedure
     .input(z.string())
     .mutation(async ({ input: appId, ctx }) => {
@@ -52,6 +66,9 @@ export const openGptAppRouter = createTRPCRouter({
         name: v.name,
         description: v.description,
       })
+
+      // no need to wait
+      revalidateHome()
       return v
     }),
 })

@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import type { MouseEventHandler, ReactNode } from 'react'
 import LoadingDots from '@/components/LoadingDots'
 import { tw } from '@/utils/tw'
+import Link from 'next/link'
+import { MouseEventHandler, ReactNode } from 'react'
 
 const baseStyles = {
   solid:
@@ -51,15 +51,13 @@ export function Button({
 }: ButtonProps) {
   className = tw(baseStyles[variant], variantStyles[variant][color], className)
 
-  return href
-    ? (
+  return href ? (
     <Link href={href} className={className} {...props}>
       {children}
     </Link>
-      )
-    : (
+  ) : (
     <button className={className} type={type} {...props}>
       {props.loading ? <LoadingDots color="white" style="large" /> : children}
     </button>
-      )
+  )
 }

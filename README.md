@@ -5,35 +5,36 @@ English | [简体中文](./README-zh_CN.md)
 Website: https://open-gpt.app/
 
 Recently, I have seen many projects based on #OpenAI. Each of us should have the ability to create these projects to solve our own problems.
-I am preparing to create an AI platform that allows all users to use and create #ChatGPT small applications. Open source!
-Progress will be tweeted in real time on [Twitter](https://twitter.com/EclipsePrayer), please like and follow!
+I am preparing to create an AI platform that allows all users to use and create #ChatGPT applications. It's open source!
+Progress will be updated in real-time on [Twitter](https://twitter.com/EclipsePrayer). Please like and follow!
 
 [![OpenGpt](./public/screenshot.png)](https://twitter.com/EclipsePrayer)
 
 ## Planned Features
 
-- [x] Users can directly run each App
-  - ✅ On March 4th, 2023, the first App "Free Style Rap Lyrics Generator" was launched
-  - ✅ On March 5th, 2023, a total of six Apps were launched. The bricks are enough and jade is needed.
-- [x] Users can create their own Apps 🧑🏻‍💻 In development
-  - ✅ As of March 8th, 2021, users can create their own Apps. Phase one plan completed.
-- On the first day of launch, users had already created over a hundred Apps! 🤯
+- [x] Users can directly run each app
+  - ✅ First app "Free Style Rap Lyric Generator" launched on March 4th, 2023
+  - ✅ A total of six apps were launched on March 5th, 2023; enough bricks are available and jade is needed
+- [x] Users can create their own apps
+  - ✅ On March 8th, 2023, users can create their own apps; Phase One plan completed
+  - ✅ On the first day of launch (March 8th), users had already created over a hundred apps! 🤯
+  - ✅ The number of user-created apps exceeded eight hundred on March11th! 🤯🤯🤯
+- [x] Support for users using their API token to remove rate limit restrictions
 
 Next phase plan:
 
-- [ ] Sort out some obviously unusable Apps and hide them from the homepage display
+- [ ] Sort out some obviously unusable apps and hide them from the homepage display
 - [ ] Add user login function
-- [ ] Can like and sort by likes
-- [ ] Can collect and create your own list of App applications
+- [ ] Allow liking and sorting by likes
+- [ ] Allow creating a list of favorite apps owned by oneself
 - [ ] Add tags for Apps
-- [ ] Can create private Apps only for oneself
+- [ ] Allow creating private Apps only belonging to oneself
 - [ ] i18n internationalization support
 
-## Contribution
+## Collaborative Development
 
-- How to [contribute](CONTRIBUTING.md)
-- Join our Discord (https://discord.gg/84J7aMyyCG) to discuss the future of this product together.
+Join our discussion about future product development at Discord.
 
-## Make friends or encourage
+## Make Friends or Encourage Us
 
 ![wechat](./public/wechat.png)

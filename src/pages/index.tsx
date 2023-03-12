@@ -1,5 +1,3 @@
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import AppList from '@/components/AppList'
 import { Button } from '@/components/Button'
 import { CallToAction } from '@/components/CallToAction'
@@ -7,15 +5,16 @@ import { Footer } from '@/components/Footer'
 import { HandPointer } from '@/components/HandPointer'
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
+import { SearchInput } from '@/components/SearchInput'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
-import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
+import { useState } from 'react'
 
-
-interface App {
+type App = {
   id: string
   name: string
   description: string
@@ -23,9 +22,7 @@ interface App {
 }
 type PageProps = { apps: App[] }
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-  locale,
-}) => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
   const caller = appRouter.createCaller({ prisma, session: null })
   const apps = await caller.app.getAll()
 
@@ -34,15 +31,23 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
       ...(await serverSideTranslations(locale, ['common'])),
       apps,
     },
+    revalidate: 10, // In seconds
   }
 }
 
-const Home = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
-) => {
+const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { apps } = props
-  console.log(props)
+  const [searchValue, setSearchValue] = useState('')
   const { t } = useTranslation('common')
+
+  const list = searchValue
+    ? apps.filter(
+      (app) =>
+        app.name.includes(searchValue) ||
+        app.description.includes(searchValue)
+    )
+    : apps
+
   return (
     <>
       <Header />
@@ -50,16 +55,24 @@ const Home = (
         <Hero />
         <div className="w-full bg-slate-50 pb-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-2 flex items-center justify-end gap-4 py-10">
-              <HandPointer />
-              <Button variant="solid" color="blue" href="/app/new">
-                <div className="flex items-center gap-2">
-                  <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
-                  <span className="whitespace-nowrap">{t('create_app')}</span>
-                </div>
-              </Button>
+            <div className="grid grid-cols-1 items-center justify-between pt-10 sm:grid-cols-3 sm:pt-0">
+              <div />
+              <SearchInput
+                setSearchValue={setSearchValue}
+                placeholder={`Search ${apps.length} apps...`}
+              />
+
+              <div className="mb-2 flex items-center justify-end gap-4 py-10">
+                <HandPointer />
+                <Button variant="solid" color="blue" href="/app/new">
+                  <div className="flex items-center gap-2">
+                    <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
+                    <span className="whitespace-nowrap">{t('create_app')}</span>
+                  </div>
+                </Button>
+              </div>
             </div>
-            <AppList list={apps} />
+            <AppList list={list} />
           </div>
         </div>
         {/* <PrimaryFeatures /> */}
