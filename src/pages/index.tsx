@@ -9,9 +9,9 @@ import { SearchInput } from '@/components/SearchInput'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
 import { useState } from 'react'
 
 type App = {
@@ -42,10 +42,10 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
 
   const list = searchValue
     ? apps.filter(
-      (app) =>
-        app.name.includes(searchValue) ||
-        app.description.includes(searchValue)
-    )
+        (app) =>
+          app.name.includes(searchValue) ||
+          app.description.includes(searchValue)
+      )
     : apps
 
   return (
