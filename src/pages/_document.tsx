@@ -1,9 +1,8 @@
-import { SITE_TITLE } from '@/utils/constants'
 import { Head, Html, Main, NextScript } from 'next/document'
 import { useTranslation } from 'react-i18next'
 
 export default function MyDocument() {
-  const title = SITE_TITLE
+  const title = 'OpenGPT - Create ChatGpt Application in seconds'
   const { t } = useTranslation('common')
   const description = t('site_desc')
 

@@ -1,4 +1,4 @@
-import { HOST_URL } from '@/utils/constants'
+import { HOST_URL } from '@/utils/hostUrl'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
