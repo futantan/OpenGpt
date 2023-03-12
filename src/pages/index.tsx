@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
     props: {
       apps,
     },
-    revalidate: 10, // In seconds
+    revalidate: 120, // In seconds
   }
 }
 
