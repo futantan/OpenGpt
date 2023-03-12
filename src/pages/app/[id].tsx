@@ -10,11 +10,11 @@ import type {
   GetStaticProps,
   InferGetServerSidePropsType,
 } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 type AppConfig = {
   id: string
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'zh', ['common'])),
       appConfig,
     },
   }

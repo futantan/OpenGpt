@@ -4,16 +4,15 @@ import { EmojiField } from '@/components/EmojiField'
 import Layout from '@/components/Layout'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { createAppSchema } from '@/server/api/schema'
-import { GetServerSideProps } from 'next'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { api, type RouterInputs } from '@/utils/api'
 import { isDev } from '@/utils/isDev'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import { type RouterInputs, api } from '@/utils/api'
 
 type Inputs = RouterInputs['app']['create']
 
@@ -253,7 +252,7 @@ export default NewApp
 export const getStaticProps = async ({ locale }: { locale: string }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'zh', ['common'])),
     },
   }
 }
