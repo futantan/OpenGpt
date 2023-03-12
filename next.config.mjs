@@ -7,6 +7,7 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
+  outputFileTracing: false,
   reactStrictMode: true,
 
   /**
