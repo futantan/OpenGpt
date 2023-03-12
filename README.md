@@ -33,7 +33,7 @@ Next phase plan:
 
 ## Collaborative Development
 
-Join our discussion about future product development at Discord.
+Join our [Discord](https://discord.gg/84J7aMyyCG) about future product development at Discord.
 
 ## Make Friends or Encourage Us
 
