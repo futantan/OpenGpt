@@ -40,5 +40,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+prisma/migrations
 
 .idea/

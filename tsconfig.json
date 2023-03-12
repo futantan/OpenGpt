@@ -24,10 +24,12 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "i18n.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "next-i18next.config.js"
   ],
   "exclude": ["node_modules"]
 }

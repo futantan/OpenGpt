@@ -1,8 +1,10 @@
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { SITE_DESC } from '@/utils/constants'
+import { useTranslation } from 'next-i18next'
 
 export function Hero() {
+  const { t } = useTranslation('common')
+
   return (
     <Container className="pt-20 pb-16 text-center lg:pt-32">
       <h1 className="font-display mx-auto max-w-4xl text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
@@ -23,7 +25,7 @@ export function Hero() {
         in seconds
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-        {SITE_DESC}
+        {t('site_desc')}
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
         <Button href="https://github.com/futantan/OpenGpt" target="_blank">

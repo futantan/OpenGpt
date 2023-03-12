@@ -10,6 +10,8 @@ import type {
   GetStaticProps,
   InferGetServerSidePropsType,
 } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Head from 'next/head'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -37,7 +39,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<
   PageProps,
   { id: string }
-> = async ({ params }) => {
+> = async ({ params, locale }) => {
   const id = params?.id
 
   if (!id) {
@@ -52,6 +54,7 @@ export const getStaticProps: GetStaticProps<
   }
   return {
     props: {
+      ...(await serverSideTranslations(locale as string, ['common'])),
       appConfig,
     },
   }
@@ -64,6 +67,7 @@ const OpenGptApp = (
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
   const { generate, generatedResults } = useGenerateResult()
+  const { t } = useTranslation('common')
 
   const incUsage = api.app.incUsage.useMutation()
 
@@ -124,7 +128,7 @@ const OpenGptApp = (
               onClick={(e) => handleRun(e)}
               disabled={loading}
             >
-              {loading ? <LoadingDots color="white" style="large" /> : '运行'}
+              {loading ? <LoadingDots color="white" style="large" /> : t('run')}
             </button>
 
             <div className="my-10 w-full space-y-10">
@@ -134,14 +138,14 @@ const OpenGptApp = (
                     className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
                     ref={resultRef}
                   >
-                    结果
+                    {t('result')}
                   </h2>
                   <div className="flex w-full flex-col items-center justify-center space-y-8">
                     <div
                       className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
                       onClick={() => {
                         navigator.clipboard.writeText(generatedResults)
-                        toast('Result copied to clipboard', {
+                        toast(t('copied_success'), {
                           icon: '✂️',
                         })
                       }}

@@ -7,6 +7,8 @@ import { createAppSchema } from '@/server/api/schema'
 import { api, type RouterInputs } from '@/utils/api'
 import { isDev } from '@/utils/isDev'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -19,6 +21,7 @@ const NewApp = () => {
   const [isTesting, setIsTesting] = useState(false)
   const [hasTested, setHasTested] = useState(false)
   const { generate, generatedResults } = useGenerateResult()
+  const { t } = useTranslation('common')
   const router = useRouter()
   const {
     register,
@@ -63,7 +66,7 @@ const NewApp = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!isDev && !hasTested) {
-      toast('提交之前请进行测试', { icon: '🙇' })
+      toast(t('test_before_submit'), { icon: '🙇' })
     } else {
       mutation.mutate(data)
     }
@@ -77,10 +80,14 @@ const NewApp = () => {
           <title>创建应用</title>
           <link rel="icon" href="/favicon.png" />
         </Head>
+        <Breadcrumb
+          pages={[{ name: t('create_app'), href: '#', current: true }]}
+        />
+
         <div className="bg-slate-50 pt-10">
           <div className="mx-auto min-h-screen max-w-xl ">
             <h1 className="py-10 text-center text-2xl font-semibold text-gray-900">
-              创建应用
+              {t('create_app')}
             </h1>
             <form className=" space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
@@ -88,7 +95,7 @@ const NewApp = () => {
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 sm:col-span-2">
                       <label className="block text-sm font-medium leading-6 text-gray-900">
-                        Icon
+                        {t('icon')}
                       </label>
                       <Controller
                         name="icon"
@@ -105,20 +112,20 @@ const NewApp = () => {
                         {errors.icon && errors.icon.message}
                       </p>
                       <p className="mt-2 text-sm text-gray-500">
-                        挑选一个 emoji 作为应用的图标吧！
+                        {t('pick_emoji_icon')}
                       </p>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 sm:col-span-2">
                       <label className="block text-sm font-medium leading-6 text-gray-900">
-                        应用名称
+                        {t('app_name')}
                       </label>
                       <div className="mt-2 flex rounded-md shadow-sm">
                         <input
                           type="text"
                           className="block w-full flex-1 rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                          placeholder="智能翻译助手"
+                          placeholder={t('app_name_placeholder')}
                           {...register('name')}
                         />
                       </div>
@@ -130,13 +137,13 @@ const NewApp = () => {
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 sm:col-span-2">
                       <label className="block text-sm font-medium leading-6 text-gray-900">
-                        应用描述
+                        {t('app_desc')}
                       </label>
                       <div className="mt-2">
                         <textarea
                           rows={3}
                           className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                          placeholder="这款 App 可以将任意语言的内容，翻译成中文"
+                          placeholder={t('app_desc_placeholder')}
                           defaultValue={''}
                           {...register('description')}
                         />
@@ -149,13 +156,13 @@ const NewApp = () => {
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 sm:col-span-2">
                       <label className="block text-sm font-medium leading-6 text-gray-900">
-                        指令
+                        {t('prompt')}
                       </label>
                       <div className="mt-2 flex rounded-md shadow-sm">
                         <textarea
                           rows={3}
                           className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                          placeholder="你是一个翻译官，无论接下来输入什么，你都要翻译成中文。内容是："
+                          placeholder={t('prompt_desc_placeholder')}
                           defaultValue={''}
                           {...register('prompt')}
                         />
@@ -164,15 +171,14 @@ const NewApp = () => {
                         {errors.prompt && errors.prompt.message}
                       </p>
                       <p className="mt-2 text-sm text-gray-500">
-                        指令需清晰易懂，明确且有逻辑。让 ChatGpt
-                        化身你的小帮手吧。
+                        {t('prompt_desc')}
                       </p>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-6">
                     <div className="col-span-3 sm:col-span-2">
                       <label className="block text-sm font-medium leading-6 text-gray-900">
-                        示例输入
+                        {t('prompt_example')}
                       </label>
                       <div className="mt-2 flex rounded-md shadow-sm">
                         <input
@@ -195,7 +201,7 @@ const NewApp = () => {
                   color="white"
                   onClick={() => router.push('/')}
                 >
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button
                   type="button"
@@ -204,7 +210,7 @@ const NewApp = () => {
                   onClick={handleTest}
                   loading={isTesting}
                 >
-                  测试
+                  {t('test')}
                 </Button>
                 <Button
                   variant="solid"
@@ -212,21 +218,21 @@ const NewApp = () => {
                   type="submit"
                   loading={isCreating}
                 >
-                  创建
+                  {t('create')}
                 </Button>
               </div>
               <div className="my-10 w-full space-y-10">
                 {generatedResults && (
                   <div className="flex flex-col gap-8">
                     <h2 className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl">
-                      结果
+                      {t('result')}
                     </h2>
                     <div className="flex w-full flex-col items-center justify-center space-y-8">
                       <div
                         className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
                         onClick={() => {
                           navigator.clipboard.writeText(generatedResults)
-                          toast('Result copied to clipboard', {
+                          toast(t('copied_success'), {
                             icon: '✂️',
                           })
                         }}
@@ -248,3 +254,11 @@ const NewApp = () => {
 }
 
 export default NewApp
+
+export const getStaticProps = async ({ locale }: { locale: string }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ['common'])),
+    },
+  }
+}

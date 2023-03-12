@@ -10,6 +10,8 @@ import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 
 type App = {
@@ -20,21 +22,23 @@ type App = {
 }
 type PageProps = { apps: App[] }
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
   const caller = appRouter.createCaller({ prisma, session: null })
   const apps = await caller.app.getAll()
 
   return {
     props: {
+      ...(await serverSideTranslations(locale as string, ['common'])),
       apps,
     },
-    revalidate: 10, // In seconds
+    revalidate: 120, // In seconds
   }
 }
 
 const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { apps } = props
   const [searchValue, setSearchValue] = useState('')
+  const { t } = useTranslation('common')
 
   const list = searchValue
     ? apps.filter(
@@ -63,7 +67,7 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
                 <Button variant="solid" color="blue" href="/app/new">
                   <div className="flex items-center gap-2">
                     <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
-                    <span className="whitespace-nowrap">创建应用</span>
+                    <span className="whitespace-nowrap">{t('create_app')}</span>
                   </div>
                 </Button>
               </div>
