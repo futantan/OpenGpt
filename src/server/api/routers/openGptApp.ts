@@ -8,6 +8,7 @@ export const openGptAppRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.openGptApp.findMany({
       select: { id: true, name: true, description: true, icon: true },
+      orderBy: { usedCount: 'desc' },
     })
   }),
   getById: publicProcedure.input(z.string()).query(({ input: id, ctx }) => {
