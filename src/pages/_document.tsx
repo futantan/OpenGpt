@@ -8,7 +8,6 @@ export default function MyDocument() {
   return (
     <Html lang="en">
       <Head>
-        <title>OpenGPT</title>
         <link rel="icon" href="/favicon.png" />
         <meta name="description" content={description} />
         <meta
