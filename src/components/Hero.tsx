@@ -28,9 +28,6 @@ export function Hero() {
         {SITE_DESC}
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
-        {/*   <Button href="https://github.com/futantan/OpenGpt" target="_blank" variant="solid" >
-          Star on GitHub
-        </Button>*/}
         <div className="flex items-center justify-end gap-4 ">
           <HandPointer />
           <Button variant="solid" color="blue" href="/app/new">
