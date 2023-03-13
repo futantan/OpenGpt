@@ -7,6 +7,7 @@ import { api } from '@/utils/api'
 
 import '@/styles/globals.css'
 import { Toaster } from 'react-hot-toast'
+import Head from 'next/head'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,6 +15,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <>
+      <Head>
+        <title>OpenGPT</title>
+      </Head>
       <Analytics />
       {/* <SessionProvider session={session}> */}
       <Component {...pageProps} />

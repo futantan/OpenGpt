@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
+import Head from 'next/head'
 
 type Inputs = RouterInputs['app']['create']
 
@@ -72,7 +73,10 @@ const NewApp = () => {
     <Layout>
       <div>
         <Breadcrumb pages={[{ name: '创建应用', href: '#', current: true }]} />
-
+        <Head>
+          <title>创建应用</title>
+          <link rel="icon" href="/favicon.png" />
+        </Head>
         <div className="bg-slate-50 pt-10">
           <div className="mx-auto min-h-screen max-w-xl ">
             <h1 className="py-10 text-center text-2xl font-semibold text-gray-900">
