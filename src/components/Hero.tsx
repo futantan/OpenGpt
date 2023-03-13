@@ -27,16 +27,19 @@ export function Hero() {
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
         {SITE_DESC}
       </p>
-      <div className="mt-10 flex justify-center gap-x-6">
-        <div className="flex items-center justify-end gap-4 ">
-          <HandPointer />
-          <Button variant="solid" color="blue" href="/app/new">
-            <div className="flex items-center gap-2">
-              <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
-              <span className="mr-0.5 whitespace-nowrap">创建应用</span>
-            </div>
-          </Button>
-        </div>
+      <div className="mt-10 flex justify-center gap-x-6 ">
+        <Button
+          variant="solid"
+          color="blue"
+          href="/app/new"
+          className="relative"
+        >
+          <HandPointer className="absolute -left-12" />
+          <div className="flex items-center gap-2">
+            <PlusCircleIcon className="h-6 w-6"></PlusCircleIcon>
+            <span className="mr-0.5 whitespace-nowrap">创建应用</span>
+          </div>
+        </Button>
       </div>
     </Container>
   )
