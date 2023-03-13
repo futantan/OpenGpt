@@ -1,8 +1,11 @@
+import { activateLicenseKey } from '@/utils/lemon'
 import {
   createParser,
   type ParsedEvent,
   type ReconnectInterval,
 } from 'eventsource-parser'
+import { MAX_TOKENS } from './constants'
+import { selectApiKeyOrActivateLicenseKey } from './selectApiKeyOrActivateLicenseKey'
 
 export type ChatGPTAgent = 'user' | 'system'
 
@@ -36,24 +39,34 @@ export async function OpenAIStream(
     console.log('user is using custom openai key')
   }
 
+  const { isUsingLicense, key } = await selectApiKeyOrActivateLicenseKey(
+    userKey
+  )
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${userKey || process.env.OPENAI_API_KEY || ''}`,
+      Authorization: `Bearer ${key}`,
     },
     method: 'POST',
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      ...payload,
+      max_tokens: isUsingLicense ? MAX_TOKENS * 2 : MAX_TOKENS,
+    }),
   })
 
   const stream = new ReadableStream({
     async start(controller) {
       // callback
-      function onParse(event: ParsedEvent | ReconnectInterval) {
+      async function onParse(event: ParsedEvent | ReconnectInterval) {
         if (event.type === 'event') {
           const data = event.data
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === '[DONE]') {
+            if (isUsingLicense) {
+              await activateLicenseKey(userKey || '')
+            }
             controller.close()
+
             return
           }
           try {
