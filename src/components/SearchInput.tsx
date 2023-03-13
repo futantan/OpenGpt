@@ -53,7 +53,7 @@ export const SearchInput = (props: SearchInputProps) => {
           onCompositionStart={handleCompositionStart}
           onChange={handleChange}
           onCompositionEnd={handleCompositionEnd}
-          className="block w-full rounded-lg border border-gray-300 bg-white p-4 pl-10 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-600 dark:focus:ring-blue-600"
+          className="block w-full rounded-lg border border-gray-300 bg-white p-4 pl-10 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600"
           placeholder={props.placeholder}
         />
       </div>
