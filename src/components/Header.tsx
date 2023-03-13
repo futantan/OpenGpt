@@ -49,7 +49,11 @@ function MobileNavIcon({ open }: { open: boolean }) {
 }
 
 const HEADER_LINKS: Array<{ href: string; label: string }> = [
-  { href: '/usage', label: 'Usage' },
+  {
+    href: 'https://github.com/futantan/OpenGpt',
+    label: '⭐️ Star on GitHub',
+  },
+  { href: '/usage', label: '💸 Usage' },
   {
     href: 'https://l5oj8ohzdp.feishu.cn/share/base/form/shrcnqfgna9DRRNsEy3rRaqiJCf',
     label: '🔥 提反馈',
