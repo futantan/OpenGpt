@@ -34,7 +34,3 @@
 ## 共同建设
 
 加入 [Discord](https://discord.gg/84J7aMyyCG)，我们一起讨论产品未来
-
-## 交个朋友 或 鼓励一下
-
-![wechat](./public/wechat.png)
