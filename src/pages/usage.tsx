@@ -6,30 +6,35 @@ import { Input } from '@/components/Input'
 import { checkOpenApiKeyFormat } from '@/utils/checkOpenApiKeyFormat'
 import { RATE_LIMIT_COUNT } from '@/utils/constants'
 import { loadOpenAIKey, saveOpenAIKey } from '@/utils/localData'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 const Usage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-
+  const [ifHasKey, setIfHasKey] = useState(false)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.value = loadOpenAIKey()
+      setIfHasKey(inputRef.current.value !== '')
     }
   }, [])
 
   const handleSave = () => {
     const value = inputRef.current?.value || ''
-    if (value === '') {
-      // clear
+    if (checkOpenApiKeyFormat(value)) {
       saveOpenAIKey(value)
+      toast('API Key 保存成功', { icon: '✅' })
+      setIfHasKey(true)
     } else {
-      if (checkOpenApiKeyFormat(value)) {
-        saveOpenAIKey(value)
-      } else {
-        toast('API Key 格式不正确', { icon: '❌' })
-      }
+      toast('API Key 格式不正确', { icon: '❌' })
     }
+  }
+  const handleClear = () => {
+    inputRef.current!.value = ''
+    const value = ''
+    saveOpenAIKey(value)
+    toast('API Key 已清除', { icon: '🗑️' })
+    setIfHasKey(false)
   }
 
   return (
@@ -66,6 +71,16 @@ const Usage = () => {
             >
               保存到本地
             </Button>
+            {ifHasKey && (
+              <Button
+                variant="solid"
+                color="white"
+                className="whitespace-nowrap"
+                onClick={handleClear}
+              >
+                清除
+              </Button>
+            )}
           </div>
         </Container>
         <div className="w-full bg-slate-50 pb-20">
