@@ -23,9 +23,11 @@ const Usage = () => {
     if (value === '') {
       // clear
       saveOpenAIKey(value)
+      toast('数据已清空', { icon: '🗑️' })
     } else {
       if (checkOpenApiKeyFormat(value)) {
         saveOpenAIKey(value)
+        toast('已保存', { icon: '✅' })
       } else {
         toast('API Key 格式不正确', { icon: '❌' })
       }
