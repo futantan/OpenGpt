@@ -62,7 +62,8 @@ const OpenGptApp = (
   const { id, demoInput, description, icon, name } = props.appConfig
   const [loading, setLoading] = useState(false)
   const [userInput, setUserInput] = useState(demoInput)
-  const { generate, generatedResults } = useGenerateResult()
+  const { generate, generatedResults, stopStream } =
+    useGenerateResult()
 
   const incUsage = api.app.incUsage.useMutation()
 
@@ -83,9 +84,24 @@ const OpenGptApp = (
     e.preventDefault()
     await generate({ userInput, id })
     incUsage.mutate(id)
-
     scrollToResults()
     setLoading(false)
+  }
+  const handleStop = async (e: any) => {
+    if (!loading) {
+      return
+    }
+    stopStream()
+    setLoading(false)
+    e.preventDefault()
+  }
+
+  const handleAction = async (e: any) => {
+    if (loading) {
+      await handleStop(e)
+    } else {
+      await handleRun(e)
+    }
   }
 
   return (
@@ -122,9 +138,8 @@ const OpenGptApp = (
             />
 
             <button
-              className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
-              onClick={(e) => handleRun(e)}
-              disabled={loading}
+              className="mt-8 min-w-[100px] rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
+              onClick={(e) => handleAction(e)}
             >
               {loading ? <LoadingDots color="white" style="large" /> : '运行'}
             </button>
@@ -142,10 +157,13 @@ const OpenGptApp = (
                     <div
                       className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
                       onClick={() => {
-                        navigator.clipboard.writeText(generatedResults)
-                        toast('Result copied to clipboard', {
-                          icon: '✂️',
-                        })
+                        navigator.clipboard
+                          .writeText(generatedResults)
+                          .then(() => {
+                            toast('Result copied to clipboard', {
+                              icon: '✂️',
+                            })
+                          })
                       }}
                     >
                       <p className="whitespace-pre-line text-left">
