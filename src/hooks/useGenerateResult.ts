@@ -2,15 +2,17 @@ import { RATE_LIMIT_COUNT } from '@/utils/constants'
 import { loadOpenAIKey } from '@/utils/localData'
 import { GenerateApiInput } from '@/utils/types'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import {  useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 export const useGenerateResult = () => {
   const router = useRouter()
   const [generatedResults, setGeneratedResults] = useState<string>('')
+  const isStreamingRef = useRef<boolean>(true)
 
   async function generate(body: GenerateApiInput) {
     setGeneratedResults('')
+    isStreamingRef.current = true
 
     const response = await fetch('/api/generate', {
       method: 'POST',
@@ -41,13 +43,25 @@ export const useGenerateResult = () => {
     const decoder = new TextDecoder()
     let done = false
 
-    while (!done) {
+    while (!done && isStreamingRef.current) {
       const { value, done: doneReading } = await reader.read()
       done = doneReading
       const chunkValue = decoder.decode(value)
       setGeneratedResults((prev) => prev + chunkValue)
     }
+
+    reader.cancel().then(() => {
+      readyStream()
+    })
   }
 
-  return { generatedResults, generate }
+  function stopStream() {
+    isStreamingRef.current = false
+  }
+
+  function readyStream() {
+    isStreamingRef.current = true
+  }
+
+  return { generatedResults, generate, stopStream }
 }
