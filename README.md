@@ -23,9 +23,17 @@ docker pull mysql
 ```bash
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql:8
 ```
-
 这将启动一个新的MySQL实例，根密码设置为```password```。在MySQL数据库中创建一个名为```OpenGptApp```的表。使用以下命令来创建表格：
+
+
+# Migrate 或建表
+npx
+```
+npx prisma migrate dev
+```
+sql
 ```sql
+USE app
 CREATE TABLE OpenGptApp (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
@@ -41,8 +49,7 @@ CREATE TABLE OpenGptApp (
 ) 
 ```
 运行项目
-
-现在你已经设置了依赖关系和MySQL，你可以运行该项目。按照以下步骤：设置环境变量``SKIP_ENV_VALIDATION``为``dev````。
+现在你已经设置了依赖关系和MySQL，你可以运行该项目。按照以下步骤：设置环境变量`SKIP_ENV_VALIDATION`为`dev`。
 ```bash
 输出SKIP_ENV_VALIDATION=dev
 ```
