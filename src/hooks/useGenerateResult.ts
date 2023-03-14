@@ -1,9 +1,9 @@
-import { RATE_LIMIT_COUNT } from '@/utils/constants'
 import { loadOpenAIKey } from '@/utils/localData'
 import { GenerateApiInput } from '@/utils/types'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { loadLicenseKey } from './../utils/localData'
 
 export const useGenerateResult = () => {
   const router = useRouter()
@@ -15,17 +15,20 @@ export const useGenerateResult = () => {
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...body, userKey: loadOpenAIKey() }),
+      body: JSON.stringify({
+        ...body,
+        userKey: loadLicenseKey() || loadOpenAIKey(),
+      }),
     })
 
     if (!response.ok) {
       if (response.status === 429) {
-        toast(
-          `每个用户每天最多使用 ${RATE_LIMIT_COUNT} 次，更多用量正在支持中`,
-          { icon: '🔴' }
-        )
+        toast(`今日免费额度已用尽，请购买使用次数`, { icon: '🔴' })
         router.push('/usage')
         return
+      } else if (response.status === 439) {
+        toast('License key 不合法或次数已耗尽', { icon: '🔴' })
+        router.push('/usage')
       } else {
         throw new Error(response.statusText)
       }

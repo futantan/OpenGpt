@@ -1,5 +1,6 @@
 import { checkOpenApiKeyFormat } from '@/utils/checkOpenApiKeyFormat'
 import { RATE_LIMIT_COUNT } from '@/utils/constants'
+import { validateLicenseKey } from '@/utils/lemon'
 import { GenerateApiInput } from '@/utils/types'
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
@@ -27,12 +28,12 @@ export default async function middleware(
       // use user's open api key
       return NextResponse.next()
     } else {
-      // // license key
-      // const isValidatedLicense = await validateLicenseKey(userKey)
-      // if (!isValidatedLicense) {
-      //   return beyoundRatelimit(request)
-      // }
-      // return NextResponse.next()
+      console.log('user is using license key')
+      const { isValid } = await validateLicenseKey(userKey)
+      if (!isValid) {
+        return runOutOfRatelimit(439)
+      }
+      return NextResponse.next()
     }
   }
 
@@ -51,7 +52,7 @@ export default async function middleware(
 
   console.log(`ip free user ${ipIdentifier}, remaining: ${remaining}`)
   if (!success) {
-    return runOutOfRatelimit(request)
+    return runOutOfRatelimit(429)
   } else {
     const res = NextResponse.next()
     res.headers.set('X-RateLimit-Limit', limit.toString())
@@ -62,10 +63,9 @@ export default async function middleware(
   }
 }
 
-function runOutOfRatelimit(req: NextRequest) {
-  console.error('Account Limited')
-  return new NextResponse(
-    JSON.stringify({ success: false, message: 'rate limit' }),
-    { status: 429, headers: { 'content-type': 'application/json' } }
-  )
+function runOutOfRatelimit(errorCode: number) {
+  return new NextResponse(JSON.stringify({ success: false, message: '' }), {
+    status: errorCode,
+    headers: { 'content-type': 'application/json' },
+  })
 }

@@ -1,4 +1,5 @@
 import AppList from '@/components/AppList'
+import { Button } from '@/components/Button'
 import { CallToAction } from '@/components/CallToAction'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -7,6 +8,7 @@ import { SearchInput } from '@/components/SearchInput'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
+import * as R from 'ramda'
 import { useState } from 'react'
 
 type App = {
@@ -32,6 +34,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { apps } = props
   const [searchValue, setSearchValue] = useState('')
+  const [sizeToShow, setSizeToShow] = useState(100)
 
   const list = searchValue
     ? apps.filter(
@@ -40,6 +43,10 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
           app.description.includes(searchValue)
       )
     : apps
+
+  const handleShowMore = () => {
+    setSizeToShow(sizeToShow + 100)
+  }
 
   return (
     <>
@@ -56,7 +63,13 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
               />
               <div />
             </div>
-            <AppList list={list} />
+            <AppList list={R.take(sizeToShow, list)} />
+
+            <div className="mt-10 flex justify-center">
+              <Button color="blue" onClick={handleShowMore}>
+                加载更多
+              </Button>
+            </div>
           </div>
         </div>
         {/* <PrimaryFeatures /> */}
