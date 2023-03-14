@@ -8,6 +8,57 @@
 
 [![OpenGpt](./public/screenshot.png)](https://twitter.com/EclipsePrayer)
 
+# 本地设置
+首先，安装该项目所需的依赖项。运行下面的命令。
+```bash
+npm install next react react-dom
+npm install package.json
+```
+MySQL的设置
+接下来，在你的本地机器上设置MySQL。按照以下步骤：使用以下命令拉出MySQL Docker镜像。
+```bash
+docker pull mysql
+```
+用以下命令启动一个名为`mysql'的新Docker容器
+```bash
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql:8
+```
+
+这将启动一个新的MySQL实例，根密码设置为```password```。在MySQL数据库中创建一个名为```OpenGptApp```的表。使用以下命令来创建表格：
+```sql
+CREATE TABLE OpenGptApp (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  icon VARCHAR(255),
+  hint TEXT,
+  demoInput TEXT,
+  prompt TEXT,
+  usedCount INT(11) DEFAULT 0,
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) 
+```
+运行项目
+
+现在你已经设置了依赖关系和MySQL，你可以运行该项目。按照以下步骤：设置环境变量``SKIP_ENV_VALIDATION``为``dev````。
+```bash
+输出SKIP_ENV_VALIDATION=dev
+```
+设置环境变量`DATABASE_URL`为`mysql://root:password@localhost:3306/app`。
+
+```bash
+export DATABASE_URL=mysql://root:password@localhost:3306/app
+```
+
+在开发模式下运行该项目。
+```bash
+npm run dev
+```
+
+这将启动该项目，你可以在 `http://localhost:3000/` 访问。
+
 
 ## 计划的功能
 
