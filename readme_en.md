@@ -13,25 +13,24 @@ The progress will be pushed in real time on [Twitter](https://twitter.com/Eclips
 [![OpenGpt](./public/screenshot.png)](https://twitter.com/EclipsePrayer)
 
 ## Planned functions
-1- Users can directly run each App.
-2- Launch the first App 03/04/2023 (The name of the app is "Free Style 说唱歌词生成器") ✅
-3- A total of 6 apps have been launched at 03/05/2023 ✅
-4- Users can create their own App.
-5- On the first day of launch, users have created more than 100 apps at 03/08/2023 !🤯 ✅
-6- The number of apps created by users exceeds 800 at 03/11/2023! 🤯🤯🤯 ✅
-7- Support users to use their own API token, thus releasing the rate limit restriction
-8- Organize some apps that are obviously not easy to use, and hide them on the home page
-
-✅: completed functions
+- [x] Users can directly run each App.
+- ✅ Launch the first App 03/04/2023 (The name of the app is "Free Style 说唱歌词生成器") 
+- ✅ A total of 6 apps have been launched at 03/05/2023
+- [x] Users can create their own App.
+- ✅ Users can create their own App, the first phase is planned to be completed
+- ✅ On the first day of launch, users have created more than 100 apps at 03/08/2023 !🤯 
+- ✅ The number of apps created by users exceeds 800 at 03/11/2023! 🤯🤯🤯
+- [x] Support users to use their own API token, thus releasing the rate limit restriction
+- [x] Organize some apps that are obviously not easy to use, and hide them on the home page
 
 ## Next Stage Planning
-1- Add user login function
-2- You can like it and sort it accordingly
-3- You can bookmark and create your own App application list
-4- Let creators take advantage of the platform to make money!
-5- Add tags to the app
-6- You can create your own private App
-7- i18n Internationalization support
+- Add user login function
+- You can like it and sort it accordingly
+- You can bookmark and create your own App application list
+- Let creators take advantage of the platform to make money!
+- Add tags to the app
+- You can create your own private App
+- i18n internationalization support
 
 ## Building Together
 Join [Discord](https://discord.gg/84J7aMyyCG), Let's discuss the future of the product together.
