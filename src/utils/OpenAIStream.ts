@@ -54,6 +54,13 @@ export async function OpenAIStream(
     }),
   })
 
+  if (res.status !== 200) {
+    const errorJson = await res.json()
+    throw new Error(
+      `OpenAI API Error [${res.statusText}]: ${errorJson.error?.message}`
+    )
+  }
+
   const stream = new ReadableStream({
     async start(controller) {
       // callback
