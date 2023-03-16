@@ -6,8 +6,6 @@ import { randomChooseFromApiToken } from './randomChooseFromApiToken'
 export const selectApiKeyOrActivateLicenseKey = async (
   userInput: string | undefined
 ): Promise<{ isUsingLicense: boolean; key: string }> => {
-  const systemKey = randomChooseFromApiToken()
-
   if (userInput) {
     if (checkOpenApiKeyFormat(userInput)) {
       // openAI key
@@ -21,10 +19,10 @@ export const selectApiKeyOrActivateLicenseKey = async (
         console.log('💸 ========== license key invalid')
         throw new Error('license key 不合法或次数已耗尽!')
       }
-      return { isUsingLicense: true, key: systemKey }
+      return { isUsingLicense: true, key: randomChooseFromApiToken(true) }
     }
   }
 
   console.log('💸 ========== using system key')
-  return { isUsingLicense: false, key: systemKey }
+  return { isUsingLicense: false, key: randomChooseFromApiToken(false) }
 }
