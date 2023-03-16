@@ -1,8 +1,10 @@
+import { fetchPost } from '@/utils/fetchPost'
 import { isDev } from '@/utils/isDev'
-import axios from 'axios'
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL
+const DISCORD_ALERT_URL = process.env.DISCORD_ALERT_URL
 
+function noop() {}
 export function sendMessageToDiscord(v: {
   id: string
   name: string
@@ -12,7 +14,7 @@ export function sendMessageToDiscord(v: {
     return
   }
   if (DISCORD_WEBHOOK_URL) {
-    return axios.post(DISCORD_WEBHOOK_URL, {
+    return fetchPost(DISCORD_WEBHOOK_URL, {
       username: 'OpenGpt 机器人',
       embeds: [
         {
@@ -31,6 +33,15 @@ export function sendMessageToDiscord(v: {
           ],
         },
       ],
-    })
+    }).catch(noop)
+  }
+}
+
+export function sendAlertToDiscord(message: string) {
+  if (isDev) {
+    return
+  }
+  if (DISCORD_ALERT_URL) {
+    return fetchPost(DISCORD_ALERT_URL, { content: message }).catch(noop)
   }
 }

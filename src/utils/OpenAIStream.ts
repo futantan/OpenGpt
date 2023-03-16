@@ -5,7 +5,6 @@ import {
   type ReconnectInterval,
 } from 'eventsource-parser'
 import { MAX_TOKENS } from './constants'
-import { selectApiKeyOrActivateLicenseKey } from './selectApiKeyOrActivateLicenseKey'
 
 export type ChatGPTAgent = 'user' | 'system'
 
@@ -28,20 +27,19 @@ export interface OpenAIStreamPayload {
 
 export async function OpenAIStream(
   payload: OpenAIStreamPayload,
-  userKey?: string
+  openAIKey: string,
+  licenseKey?: string
 ) {
+  const isUsingLicense = !!licenseKey
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
 
   let counter = 0
 
-  const { isUsingLicense, key } = await selectApiKeyOrActivateLicenseKey(
-    userKey
-  )
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${key}`,
+      Authorization: `Bearer ${openAIKey}`,
     },
     method: 'POST',
     body: JSON.stringify({
@@ -66,7 +64,7 @@ export async function OpenAIStream(
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === '[DONE]') {
             if (isUsingLicense) {
-              await activateLicenseKey(userKey || '')
+              await activateLicenseKey(licenseKey || '')
             }
             controller.close()
 

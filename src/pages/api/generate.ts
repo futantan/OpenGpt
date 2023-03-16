@@ -1,5 +1,8 @@
 import { HOST_URL } from '@/utils/hostUrl'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
+import { randomChooseFromApiToken } from '@/utils/randomChooseFromApiToken'
+import { selectAPaidKey } from '@/utils/selectApiKeyBasedOnUserIsPaidOrNot'
+import { sendAlertToDiscord } from '@/utils/sendMessageToDiscord'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
 import { MAX_TOKENS } from './../../utils/constants'
@@ -53,13 +56,33 @@ const handler = async (req: NextRequest): Promise<Response> => {
     n: 1,
   }
 
-  try {
-    const stream = await OpenAIStream(payload, userKey)
-    return new Response(stream)
-  } catch (e) {
-    console.error('🚨 Error in OpenAIStream', e, (e as any).message)
-    throw e
+  async function execute(currentRetryTimes: number): Promise<any> {
+    let openAIKey = userKey
+      ? await selectAPaidKey(userKey)
+      : randomChooseFromApiToken({ isPaid: false })
+
+    try {
+      const stream = await OpenAIStream(payload, openAIKey, userKey)
+      return new Response(stream)
+    } catch (e) {
+      const log =
+        '🚨 Error in OpenAIStream' +
+        'the first 10 digits:' +
+        openAIKey.slice(0, 10) +
+        (e as any).message
+      console.error(log)
+      await sendAlertToDiscord(log)
+
+      if (currentRetryTimes > 3) {
+        throw e
+      } else {
+        console.log('Retrying...')
+        return execute(currentRetryTimes + 1)
+      }
+    }
   }
+
+  return execute(0)
 }
 
 export default handler
