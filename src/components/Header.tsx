@@ -9,13 +9,20 @@ import { NavLink } from '@/components/NavLink'
 
 function MobileNavLink({
   href,
+  target,
   children,
 }: {
   href: string
+  target?: string
   children: React.ReactNode
 }) {
   return (
-    <Popover.Button as={Link} href={href} className="block w-full p-2">
+    <Popover.Button
+      as={Link}
+      href={href}
+      target={target || '_self'}
+      className="block w-full p-2"
+    >
       {children}
     </Popover.Button>
   )
@@ -48,15 +55,27 @@ function MobileNavIcon({ open }: { open: boolean }) {
   )
 }
 
-const HEADER_LINKS: Array<{ href: string; label: string }> = [
+const HEADER_LINKS: Array<{ href: string; label: string; target?: string }> = [
   {
     href: 'https://github.com/futantan/OpenGpt',
     label: '⭐️ Star on GitHub',
+    target: '_blank',
   },
   { href: '/usage', label: '💸 Usage' },
   {
     href: 'https://l5oj8ohzdp.feishu.cn/share/base/form/shrcnqfgna9DRRNsEy3rRaqiJCf',
     label: '🔥 提反馈',
+    target: '_blank',
+  },
+  {
+    href: 'https://b.jimmylv.cn?ref=opengpt',
+    label: 'BibiGPT(音视频总结)',
+    target: '_blank',
+  },
+  {
+    href: 'https://mofa.si/cha.jpg?ref=opengpt',
+    label: '查呀查(微信小程序)',
+    target: '_blank',
   },
   // { href: '#testimonials', label: '用户评价' },
   // { href: '#pricing', label: '价格' },
@@ -96,8 +115,8 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            {HEADER_LINKS.map(({ href, label }) => (
-              <MobileNavLink key={label} href={href}>
+            {HEADER_LINKS.map(({ href, label, target }) => (
+              <MobileNavLink key={label} href={href} target={target}>
                 {label}
               </MobileNavLink>
             ))}
@@ -120,8 +139,8 @@ export function Header() {
               <Logo className="h-10 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
-              {HEADER_LINKS.map(({ href, label }) => (
-                <NavLink key={label} href={href}>
+              {HEADER_LINKS.map(({ href, label, target }) => (
+                <NavLink key={label} href={href} target={target}>
                   {label}
                 </NavLink>
               ))}
