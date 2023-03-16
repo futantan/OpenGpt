@@ -35,10 +35,6 @@ export async function OpenAIStream(
 
   let counter = 0
 
-  if (userKey) {
-    console.log('user is using custom openai key')
-  }
-
   const { isUsingLicense, key } = await selectApiKeyOrActivateLicenseKey(
     userKey
   )

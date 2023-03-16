@@ -1,4 +1,3 @@
-import { checkOpenApiKeyFormat } from '@/utils/checkOpenApiKeyFormat'
 import { RATE_LIMIT_COUNT } from '@/utils/constants'
 import { validateLicenseKey } from '@/utils/lemon'
 import { GenerateApiInput } from '@/utils/types'
@@ -24,17 +23,12 @@ export default async function middleware(
   const { userKey } = (await request.json()) as GenerateApiInput
 
   if (userKey) {
-    if (checkOpenApiKeyFormat(userKey)) {
-      // use user's open api key
-      return NextResponse.next()
-    } else {
-      console.log('user is using license key')
-      const { isValid } = await validateLicenseKey(userKey)
-      if (!isValid) {
-        return runOutOfRatelimit(439)
-      }
-      return NextResponse.next()
+    console.log('user is using license key')
+    const { isValid } = await validateLicenseKey(userKey)
+    if (!isValid) {
+      return runOutOfRatelimit(439)
     }
+    return NextResponse.next()
   }
 
   if (isDev) {

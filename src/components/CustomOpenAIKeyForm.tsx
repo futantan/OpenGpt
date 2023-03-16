@@ -1,38 +1,8 @@
-import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { Input } from '@/components/Input'
-import { loadOpenAIKey, saveOpenAIKey } from '@/utils/localData'
-import { useEffect, useRef, useState } from 'react'
-import { toast } from 'react-hot-toast'
+import { useState } from 'react'
 
 export const CustomOpenAIKeyForm = () => {
   const [showOpenAIForm, setShowOpenAIForm] = useState(false)
-  const openAIKeyInputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (openAIKeyInputRef.current) {
-      openAIKeyInputRef.current.value = loadOpenAIKey()
-    }
-  }, [showOpenAIForm])
-
-  const handleClear = () => {
-    toast('数据已清空', { icon: '🗑️' })
-    saveOpenAIKey('')
-
-    if (openAIKeyInputRef.current) {
-      openAIKeyInputRef.current.value = ''
-    }
-  }
-
-  const handleSave = async () => {
-    const value = openAIKeyInputRef.current?.value || ''
-    if (value === '') {
-      return
-    }
-
-    saveOpenAIKey(value)
-    toast('已保存', { icon: '✅' })
-  }
 
   return (
     <>
@@ -50,26 +20,22 @@ export const CustomOpenAIKeyForm = () => {
           <div className="mx-auto mt-10 max-w-sm">
             <div className="text-left">
               <div className=" sm:col-span-2">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Open AI key
-                </label>
-                <div className="mt-2 flex rounded-md shadow-sm">
-                  <Input
-                    type="text"
-                    className="w-full"
-                    placeholder="粘贴你的 OpenAI API Key: sk-xxxxxx"
-                    ref={openAIKeyInputRef}
-                  />
+                <div className="flex flex-col gap-3 text-sm font-medium leading-6 text-gray-900">
+                  <div>
+                    为了回馈开源社区，也方便大家的使用，我们早期支持使用自己的
+                    API key
+                  </div>
+
+                  <div>
+                    但是最终移除了对自定义 key 的支持。因为之前自定义 key
+                    可以绕开所有限制，有人利用我们为大家提供的这一功能，滥用
+                    API，将 OpenGPT
+                    当做免费的服务器使用，给我们造成了非常高的成本。
+                  </div>
+
+                  <div>非常抱歉，不得已为之。</div>
                 </div>
               </div>
-            </div>
-            <div className="mt-10 flex justify-end gap-3 px-4 sm:px-0">
-              <Button variant="outline" color="slate" onClick={handleClear}>
-                清除
-              </Button>
-              <Button variant="solid" color="blue" onClick={handleSave}>
-                保存
-              </Button>
             </div>
           </div>
         )}
