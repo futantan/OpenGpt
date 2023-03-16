@@ -1,11 +1,12 @@
 import { checkOpenApiKeyFormat } from '@/utils/checkOpenApiKeyFormat'
 import { validateLicenseKey } from '@/utils/lemon'
+import { randomChooseFromApiToken } from './randomChooseFromApiToken'
 
 // when request comes to this function, the rate limit is passed
 export const selectApiKeyOrActivateLicenseKey = async (
   userInput: string | undefined
 ): Promise<{ isUsingLicense: boolean; key: string }> => {
-  const systemKey = process.env.OPENAI_API_KEY || ''
+  const systemKey = randomChooseFromApiToken()
 
   if (userInput) {
     if (checkOpenApiKeyFormat(userInput)) {
