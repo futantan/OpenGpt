@@ -57,7 +57,7 @@ const handler = async (req: NextRequest): Promise<Response> => {
     const stream = await OpenAIStream(payload, userKey)
     return new Response(stream)
   } catch (e) {
-    console.log('🚨 Error in OpenAIStream', e)
+    console.error('🚨 Error in OpenAIStream', e, (e as any).message)
     throw e
   }
 }
