@@ -55,23 +55,32 @@ const handler = async (req: NextRequest): Promise<Response> => {
     n: 1,
   }
 
-  let openAIKey = userKey
-    ? await selectAPaidKey(userKey)
-    : randomChooseFromApiToken({ isPaid: false })
+  async function execute(currentRetryTimes: number): Promise<any> {
+    let openAIKey = userKey
+      ? await selectAPaidKey(userKey)
+      : randomChooseFromApiToken({ isPaid: false })
 
-  try {
-    const stream = await OpenAIStream(payload, openAIKey, userKey)
-    return new Response(stream)
-  } catch (e) {
-    console.error(
-      '🚨 Error in OpenAIStream',
-      'the first 10 digits:',
-      openAIKey.slice(0, 10),
-      e,
-      (e as any).message
-    )
-    throw e
+    try {
+      const stream = await OpenAIStream(payload, openAIKey, userKey)
+      return new Response(stream)
+    } catch (e) {
+      console.error(
+        '🚨 Error in OpenAIStream',
+        'the first 10 digits:',
+        openAIKey.slice(0, 10),
+        e,
+        (e as any).message
+      )
+      if (currentRetryTimes > 3) {
+        throw e
+      } else {
+        console.log('Retrying...')
+        return execute(currentRetryTimes + 1)
+      }
+    }
   }
+
+  return execute(0)
 }
 
 export default handler
