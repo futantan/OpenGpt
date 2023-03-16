@@ -53,8 +53,13 @@ const handler = async (req: NextRequest): Promise<Response> => {
     n: 1,
   }
 
-  const stream = await OpenAIStream(payload, userKey)
-  return new Response(stream)
+  try {
+    const stream = await OpenAIStream(payload, userKey)
+    return new Response(stream)
+  } catch (e) {
+    console.log('🚨 Error in OpenAIStream', e)
+    throw e
+  }
 }
 
 export default handler
