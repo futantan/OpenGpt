@@ -1,5 +1,7 @@
 import { HOST_URL } from '@/utils/hostUrl'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
+import { randomChooseFromApiToken } from '@/utils/randomChooseFromApiToken'
+import { selectAPaidKey } from '@/utils/selectApiKeyBasedOnUserIsPaidOrNot'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
 import { MAX_TOKENS } from './../../utils/constants'
@@ -53,8 +55,12 @@ const handler = async (req: NextRequest): Promise<Response> => {
     n: 1,
   }
 
+  let openAIKey = userKey
+    ? await selectAPaidKey(userKey)
+    : randomChooseFromApiToken({ isPaid: false })
+
   try {
-    const stream = await OpenAIStream(payload, userKey)
+    const stream = await OpenAIStream(payload, openAIKey, userKey)
     return new Response(stream)
   } catch (e) {
     console.error('🚨 Error in OpenAIStream', e, (e as any).message)

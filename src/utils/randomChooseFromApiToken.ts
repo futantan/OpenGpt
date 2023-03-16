@@ -1,5 +1,5 @@
-export const randomChooseFromApiToken = (isPaid: boolean) => {
-  const keys = isPaid
+export const randomChooseFromApiToken = (v: { isPaid: boolean }) => {
+  const keys = v.isPaid
     ? process.env.PAID_OPENAI_API_KEY?.split(',')
     : process.env.OPENAI_API_KEY?.split(',')
   return sample(keys)
