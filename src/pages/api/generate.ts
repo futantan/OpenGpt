@@ -63,7 +63,13 @@ const handler = async (req: NextRequest): Promise<Response> => {
     const stream = await OpenAIStream(payload, openAIKey, userKey)
     return new Response(stream)
   } catch (e) {
-    console.error('🚨 Error in OpenAIStream', e, (e as any).message)
+    console.error(
+      '🚨 Error in OpenAIStream',
+      'the first 10 digits:',
+      openAIKey.slice(0, 10),
+      e,
+      (e as any).message
+    )
     throw e
   }
 }
