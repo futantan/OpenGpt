@@ -2,6 +2,7 @@ import { HOST_URL } from '@/utils/hostUrl'
 import { OpenAIStream, OpenAIStreamPayload } from '@/utils/OpenAIStream'
 import { randomChooseFromApiToken } from '@/utils/randomChooseFromApiToken'
 import { selectAPaidKey } from '@/utils/selectApiKeyBasedOnUserIsPaidOrNot'
+import { sendAlertToDiscord } from '@/utils/sendMessageToDiscord'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
 import { MAX_TOKENS } from './../../utils/constants'
@@ -64,13 +65,14 @@ const handler = async (req: NextRequest): Promise<Response> => {
       const stream = await OpenAIStream(payload, openAIKey, userKey)
       return new Response(stream)
     } catch (e) {
-      console.error(
-        '🚨 Error in OpenAIStream',
-        'the first 10 digits:',
-        openAIKey.slice(0, 10),
-        e,
+      const log =
+        '🚨 Error in OpenAIStream' +
+        'the first 10 digits:' +
+        openAIKey.slice(0, 10) +
         (e as any).message
-      )
+      console.error(log)
+      await sendAlertToDiscord(log)
+
       if (currentRetryTimes > 3) {
         throw e
       } else {
