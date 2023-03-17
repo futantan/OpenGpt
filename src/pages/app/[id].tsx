@@ -89,77 +89,75 @@ const OpenGptApp = (
   }
 
   return (
-    <Layout>
-      <Breadcrumb pages={[]} />
-
-      <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">
-        <Head>
-          <title>{name}</title>
-          <link
-            rel="icon"
-            href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
-          />
-        </Head>
-
-        <main className="mt-12 flex w-full flex-1 flex-col items-center justify-center px-4 text-center sm:mt-20">
-          <h1 className="max-w-[708px] text-4xl font-bold text-slate-900 sm:text-6xl">
-            {name}
-          </h1>
-
-          <p className="mt-6 text-lg leading-8 text-gray-600">{description}</p>
-
-          <div className="w-full max-w-xl">
-            {/* <div className="mt-10 flex items-center space-x-3">
-            <p className="text-left font-medium">{hint}</p>
-          </div> */}
-
-            <textarea
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              rows={4}
-              className="my-5 w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
-              placeholder={demoInput}
-            />
-
-            <button
-              className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
-              onClick={(e) => handleRun(e)}
-              disabled={loading}
-            >
-              {loading ? <LoadingDots color="white" style="large" /> : '运行'}
-            </button>
-
-            <div className="my-10 w-full space-y-10">
-              {generatedResults && (
-                <div className="flex flex-col gap-8">
-                  <h2
-                    className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
-                    ref={resultRef}
-                  >
-                    结果
-                  </h2>
-                  <div className="flex w-full flex-col items-center justify-center space-y-8">
-                    <div
-                      className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
-                      onClick={() => {
-                        navigator.clipboard.writeText(generatedResults)
-                        toast('Result copied to clipboard', {
-                          icon: '✂️',
-                        })
-                      }}
+    <>
+      <Head>
+        <title>{name} | OpenGPT</title>
+        <meta name="description" content={description} />
+        <link
+          rel="icon"
+          href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
+        />
+      </Head>
+      <Layout>
+        <Breadcrumb pages={[]} />
+        <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">
+          <main className="mt-12 flex w-full flex-1 flex-col items-center justify-center px-4 text-center sm:mt-20">
+            <h1 className="max-w-[708px] text-4xl font-bold text-slate-900 sm:text-6xl">
+              {name}
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              {description}
+            </p>
+            <div className="w-full max-w-xl">
+              {/* <div className="mt-10 flex items-center space-x-3">
+              <p className="text-left font-medium">{hint}</p>
+            </div> */}
+              <textarea
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                rows={4}
+                className="my-5 w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black"
+                placeholder={demoInput}
+              />
+              <button
+                className="mt-8 rounded-xl bg-black px-8 py-2 font-medium text-white hover:bg-black/80 sm:mt-10"
+                onClick={(e) => handleRun(e)}
+                disabled={loading}
+              >
+                {loading ? <LoadingDots color="white" style="large" /> : '运行'}
+              </button>
+              <div className="my-10 w-full space-y-10">
+                {generatedResults && (
+                  <div className="flex flex-col gap-8">
+                    <h2
+                      className="mx-auto text-3xl font-bold text-slate-900 sm:text-4xl"
+                      ref={resultRef}
                     >
-                      <p className="whitespace-pre-line text-left">
-                        {generatedResults}
-                      </p>
+                      结果
+                    </h2>
+                    <div className="flex w-full flex-col items-center justify-center space-y-8">
+                      <div
+                        className="w-full cursor-copy rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100"
+                        onClick={() => {
+                          navigator.clipboard.writeText(generatedResults)
+                          toast('Result copied to clipboard', {
+                            icon: '✂️',
+                          })
+                        }}
+                      >
+                        <p className="whitespace-pre-line text-left">
+                          {generatedResults}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
-    </Layout>
+          </main>
+        </div>
+      </Layout>
+    </>
   )
 }
 
