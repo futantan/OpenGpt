@@ -67,8 +67,8 @@ const handler = async (req: NextRequest): Promise<Response> => {
     } catch (e) {
       const log =
         '🚨 Error in OpenAIStream' +
-        'the first 10 digits:' +
-        openAIKey.slice(0, 10) +
+        'the last 4 digits:' +
+        openAIKey.slice(0, -4) +
         (e as any).message
       console.error(log)
       await sendAlertToDiscord(log)
