@@ -1,13 +1,14 @@
 import { Analytics } from '@vercel/analytics/react'
 import { type Session } from 'next-auth'
+import { DefaultSeo } from 'next-seo'
 // import { SessionProvider } from 'next-auth/react'
 import { type AppType } from 'next/app'
 
 import { api } from '@/utils/api'
 
 import '@/styles/globals.css'
+import { DEFAULT_SEO_CONFIG } from '@/utils/seoConfig'
 import { Toaster } from 'react-hot-toast'
-import Head from 'next/head'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,11 +16,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>OpenGPT</title>
-      </Head>
       <Analytics />
       {/* <SessionProvider session={session}> */}
+      <DefaultSeo {...DEFAULT_SEO_CONFIG} />
       <Component {...pageProps} />
       <Toaster
         position="top-center"

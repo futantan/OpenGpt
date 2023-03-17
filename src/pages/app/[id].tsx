@@ -10,7 +10,7 @@ import type {
   GetStaticProps,
   InferGetServerSidePropsType,
 } from 'next'
-import Head from 'next/head'
+import { NextSeo } from 'next-seo'
 import { useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -90,14 +90,16 @@ const OpenGptApp = (
 
   return (
     <>
-      <Head>
-        <title>{name} | OpenGPT</title>
-        <meta name="description" content={description} />
-        <link
-          rel="icon"
-          href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
-        />
-      </Head>
+      <NextSeo
+        title={name}
+        description={description}
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`,
+          },
+        ]}
+      />
       <Layout>
         <Breadcrumb pages={[]} />
         <div className="mx-auto flex max-w-3xl flex-col items-center justify-center py-2">

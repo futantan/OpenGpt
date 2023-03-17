@@ -36,6 +36,7 @@ specifiers:
   eventsource-parser: ^0.0.5
   next: ^13.2.1
   next-auth: ^4.19.0
+  next-seo: ^5.15.0
   postcss: ^8.4.14
   prettier: ^2.8.1
   prettier-plugin-tailwindcss: ^0.2.1
@@ -75,6 +76,7 @@ dependencies:
   eventsource-parser: 0.0.5
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.20.1_nvzgbose6yf6w7ijjprgspqefi
+  next-seo: 5.15.0_nvzgbose6yf6w7ijjprgspqefi
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2225,6 +2227,18 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       uuid: 8.3.2
+    dev: false
+
+  /next-seo/5.15.0_nvzgbose6yf6w7ijjprgspqefi:
+    resolution: {integrity: sha512-LGbcY91yDKGMb7YI+28n3g+RuChUkt6pXNpa8FkfKkEmNiJkeRDEXTnnjVtwT9FmMhG6NH8qwHTelGrlYm9rgg==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || >=9.0.0
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      next: 13.2.3_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /next/13.2.3_biqbaboplfbrettd7655fr4n2y:
