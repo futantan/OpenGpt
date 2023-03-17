@@ -72,11 +72,6 @@ const HEADER_LINKS: Array<{ href: string; label: string; target?: string }> = [
     label: 'BibiGPT(音视频总结)',
     target: '_blank',
   },
-  {
-    href: 'https://mofa.si/cha.jpg?ref=opengpt',
-    label: '查呀查(微信小程序)',
-    target: '_blank',
-  },
   // { href: '#testimonials', label: '用户评价' },
   // { href: '#pricing', label: '价格' },
 ]
