@@ -33,6 +33,7 @@
     "eventsource-parser": "^0.0.5",
     "next": "^13.2.1",
     "next-auth": "^4.19.0",
+    "next-seo": "^5.15.0",
     "ramda": "^0.28.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

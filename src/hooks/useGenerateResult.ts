@@ -1,4 +1,3 @@
-import { loadOpenAIKey } from '@/utils/localData'
 import { GenerateApiInput } from '@/utils/types'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -17,7 +16,7 @@ export const useGenerateResult = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...body,
-        userKey: loadLicenseKey() || loadOpenAIKey(),
+        userKey: loadLicenseKey(),
       }),
     })
 

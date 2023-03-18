@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { SITE_DESC } from '@/utils/constants'
 import { HandPointer } from '@/components/HandPointer'
+import { SITE_DESC } from '@/utils/seoConfig'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
 
 export function Hero() {
