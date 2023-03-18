@@ -5,6 +5,7 @@ import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import { api } from '@/utils/api'
+import { HOST_URL } from '@/utils/hostUrl'
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -88,11 +89,16 @@ const OpenGptApp = (
     setLoading(false)
   }
 
+  const openGraph = {
+    images: [{ url: HOST_URL + '/api/og?name=' + name + '&icon=' + icon }],
+  }
+
   return (
     <>
       <NextSeo
         title={name}
         description={description}
+        openGraph={openGraph}
         additionalLinkTags={[
           {
             rel: 'icon',
