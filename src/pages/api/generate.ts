@@ -73,7 +73,10 @@ const handler = async (req: NextRequest): Promise<Response> => {
       console.error(log)
       await sendAlertToDiscord(log)
 
-      if (currentRetryTimes > 3) {
+      if (
+        currentRetryTimes > 3 ||
+        log.includes('Please reduce the length of the messages.')
+      ) {
         throw e
       } else {
         console.log('Retrying...')
