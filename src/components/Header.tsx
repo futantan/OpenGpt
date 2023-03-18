@@ -1,11 +1,13 @@
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
+import { useTranslation } from 'next-i18next'
+import { LanguageSelector } from './LanguageSelector'
 
 function MobileNavLink({
   href,
@@ -55,28 +57,38 @@ function MobileNavIcon({ open }: { open: boolean }) {
   )
 }
 
-const HEADER_LINKS: Array<{ href: string; label: string; target?: string }> = [
-  {
-    href: 'https://github.com/futantan/OpenGpt',
-    label: '⭐️ Star on GitHub',
-    target: '_blank',
-  },
-  { href: '/usage', label: '💸 Usage' },
-  {
-    href: 'https://l5oj8ohzdp.feishu.cn/share/base/form/shrcnqfgna9DRRNsEy3rRaqiJCf',
-    label: '🔥 提反馈',
-    target: '_blank',
-  },
-  {
-    href: 'https://b.jimmylv.cn?ref=opengpt',
-    label: 'BibiGPT(音视频总结)',
-    target: '_blank',
-  },
-  // { href: '#testimonials', label: '用户评价' },
-  // { href: '#pricing', label: '价格' },
-]
+const useHeaders = () => {
+  const { t } = useTranslation('common')
+
+  const HEADER_LINKS: Array<{ href: string; label: string; target?: string }> =
+    useMemo(
+      () => [
+        {
+          href: 'https://github.com/futantan/OpenGpt',
+          label: '⭐️ Star on GitHub',
+          target: '_blank',
+        },
+        { href: '/usage', label: '💸 Usage' },
+        {
+          href: 'https://l5oj8ohzdp.feishu.cn/share/base/form/shrcnqfgna9DRRNsEy3rRaqiJCf',
+          label: '🔥 ' + t('give_feedack'),
+          target: '_blank',
+        },
+        {
+          href: 'https://b.jimmylv.cn?ref=opengpt',
+          label: t('bibigpt'),
+          target: '_blank',
+        },
+        // { href: '#testimonials', label: '用户评价' },
+        // { href: '#pricing', label: '价格' },
+      ],
+      [t]
+    )
+  return HEADER_LINKS
+}
 
 function MobileNavigation() {
+  const HEADER_LINKS = useHeaders()
   return (
     <Popover>
       <Popover.Button
@@ -116,6 +128,7 @@ function MobileNavigation() {
               </MobileNavLink>
             ))}
             <hr className="m-2 border-slate-300/40" />
+            <LanguageSelector />
             {/* <MobileNavLink href="/login">Sign in</MobileNavLink> */}
           </Popover.Panel>
         </Transition.Child>
@@ -125,6 +138,8 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  const HEADER_LINKS = useHeaders()
+
   return (
     <header className="py-10">
       <Container>
@@ -139,6 +154,7 @@ export function Header() {
                   {label}
                 </NavLink>
               ))}
+              <LanguageSelector />
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">

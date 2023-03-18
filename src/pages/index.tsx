@@ -10,6 +10,8 @@ import { prisma } from '@/server/db'
 import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
 import * as R from 'ramda'
 import { useState } from 'react'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 type App = {
   id: string
@@ -19,13 +21,13 @@ type App = {
 }
 type PageProps = { apps: App[] }
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
+export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
   const caller = appRouter.createCaller({ prisma, session: null })
   const apps = await caller.app.getAll()
-
   return {
     props: {
       apps,
+      ...(await serverSideTranslations(locale!, ['common'])),
     },
     revalidate: 120, // In seconds
   }
@@ -35,13 +37,14 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { apps } = props
   const [searchValue, setSearchValue] = useState('')
   const [sizeToShow, setSizeToShow] = useState(100)
+  const { t } = useTranslation('common')
 
   const list = searchValue
     ? apps.filter(
-        (app) =>
-          app.name.includes(searchValue) ||
-          app.description.includes(searchValue)
-      )
+      (app) =>
+        app.name.includes(searchValue) ||
+        app.description.includes(searchValue)
+    )
     : apps
 
   const handleShowMore = () => {
@@ -67,7 +70,7 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
 
             <div className="mt-10 flex justify-center">
               <Button color="blue" onClick={handleShowMore}>
-                加载更多
+                {t('load_more')}
               </Button>
             </div>
           </div>

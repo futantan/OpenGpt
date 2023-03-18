@@ -1,6 +1,7 @@
 import { HandThumbUpIcon, PlayIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
+import { useTranslation } from 'next-i18next'
 
 interface AppListProps {
   list: Array<{
@@ -11,6 +12,7 @@ interface AppListProps {
   }>
 }
 const AppList = (props: AppListProps) => {
+  const { t } = useTranslation('common')
   const { list } = props
 
   const currentApps = list.map((v) => ({
@@ -52,13 +54,13 @@ const AppList = (props: AppListProps) => {
               <div className="flex w-0 flex-1">
                 <button
                   className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                  onClick={() => toast('疯狂开发中', { icon: '🙇' })}
+                  onClick={() => toast(t('developing'), { icon: '🙇' })}
                 >
                   <HandThumbUpIcon
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  推荐
+                  {t('recommend')}
                 </button>
               </div>
               <div className="-ml-px flex w-0 flex-1">
@@ -70,7 +72,7 @@ const AppList = (props: AppListProps) => {
                     className="h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  运行
+                  {t('run')}
                 </Link>
               </div>
             </div>
