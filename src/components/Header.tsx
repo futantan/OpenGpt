@@ -128,7 +128,6 @@ function MobileNavigation() {
               </MobileNavLink>
             ))}
             <hr className="m-2 border-slate-300/40" />
-            <LanguageSelector />
             {/* <MobileNavLink href="/login">Sign in</MobileNavLink> */}
           </Popover.Panel>
         </Transition.Child>
@@ -154,10 +153,11 @@ export function Header() {
                   {label}
                 </NavLink>
               ))}
-              <LanguageSelector />
             </div>
           </div>
+
           <div className="flex items-center gap-x-5 md:gap-x-8">
+            <LanguageSelector />
             <div className="hidden md:block">
               {/* <NavLink href="/login">Sign in</NavLink> */}
             </div>

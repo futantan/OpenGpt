@@ -4,6 +4,6 @@ module.exports = {
   baseLocale: 'zh',
   locales: i18n.locales, // avoid duplicated
   localePath: 'public/locales',
-  openAIApiKey: process.env.OPENAI_API_KEY,
-  openAIApiUrl: process.env.OPENAI_API_URL,
+  // openAIApiKey: process.env.OPENAI_API_KEY, // TODO: update key here
+  // openAIApiUrl: process.env.OPENAI_API_URL,
 }

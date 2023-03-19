@@ -1,5 +1,5 @@
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline'
+import { tw } from '@/utils/tw'
+import { Popover, Transition } from '@headlessui/react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Fragment, useCallback, useMemo } from 'react'
@@ -37,55 +37,67 @@ const LanguageSelector = () => {
   const { language: currentLanguage } = i18n
 
   return (
-    <div className="w-48">
-      <Listbox value={currentLanguage} onChange={languageChanged}>
-        <div className="relative">
-          <Listbox.Button className="cursor relative w-full cursor-default rounded-lg bg-white py-1 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <div>{getLocaleDisplayName(currentLanguage)}</div>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
+    <div className="flex items-end">
+      <Popover className="relative">
+        <Popover.Button>
+          <div className="flex items-center fill-black text-black">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              focusable="false"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d=" M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z "
+                className="css-c4d79v"
               />
-            </span>
-          </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {localesAndNames.map(({ locale, name }) => (
-                <Listbox.Option
+            </svg>{' '}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              focusable="false"
+              className="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M12,16c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l5.3,5.3l5.3-5.3c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-6,6C12.5,15.9,12.3,16,12,16z" />
+            </svg>
+          </div>
+        </Popover.Button>
+
+        <Transition
+          as={Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Popover.Panel className="absolute mt-1 max-h-60 w-auto overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {localesAndNames.map(({ locale, name }) => {
+              const isSelected = currentLanguage === locale
+              return (
+                <div
                   key={locale}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4
-                    ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'}`
-                  }
-                  value={locale}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate
-                        ${selected ? 'font-medium' : 'font-normal'}`}
-                      >
-                        {name}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
+                  onClick={() => languageChanged(locale)}
+                  className={tw(
+                    `relative w-auto cursor-default select-none py-2 px-2 pr-4 text-black hover:bg-blue-200`,
+                    isSelected ? '' : ''
                   )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </div>
-      </Listbox>
+                >
+                  <span
+                    className={tw(
+                      `block truncate`,
+                      isSelected && 'font-bold text-blue-600'
+                    )}
+                  >
+                    {name}
+                  </span>
+                </div>
+              )
+            })}
+          </Popover.Panel>
+        </Transition>
+      </Popover>
     </div>
   )
 }
