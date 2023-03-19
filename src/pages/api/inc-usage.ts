@@ -7,15 +7,18 @@ const handler: NextApiHandler = async (req, res) => {
     req.headers.authorization === `Bearer ${PROMPT_SECRET}` &&
     req.headers.authorization !== `Bearer `
   ) {
-    const app = await prisma.openGptApp.findUnique({
+    await prisma.openGptApp.update({
       where: { id: req.body.id },
-      select: { prompt: true },
+      data: {
+        usedCount: {
+          increment: 1,
+        },
+        paidUseCount: {
+          increment: req.body.isPaid ? 1 : 0,
+        },
+      },
     })
-    if (!app) {
-      return res.status(400).end()
-    } else {
-      return res.status(200).json({ prompt: app.prompt })
-    }
+    return res.status(200).json({})
   } else {
     return res.status(401).end()
   }

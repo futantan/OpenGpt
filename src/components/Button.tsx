@@ -47,6 +47,7 @@ export function Button({
   className,
   href,
   children,
+  loading = false,
   ...props
 }: ButtonProps) {
   className = tw(baseStyles[variant], variantStyles[variant][color], className)
@@ -57,7 +58,7 @@ export function Button({
     </Link>
   ) : (
     <button className={className} type={type} {...props}>
-      {props.loading ? <LoadingDots color="white" style="large" /> : children}
+      {loading ? <LoadingDots color="white" style="large" /> : children}
     </button>
   )
 }

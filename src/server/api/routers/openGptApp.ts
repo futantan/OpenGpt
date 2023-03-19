@@ -38,18 +38,6 @@ export const openGptAppRouter = createTRPCRouter({
         },
       })
     }),
-  incUsage: publicProcedure
-    .input(z.string())
-    .mutation(async ({ input: appId, ctx }) => {
-      return ctx.prisma.openGptApp.update({
-        where: { id: appId },
-        data: {
-          usedCount: {
-            increment: 1,
-          },
-        },
-      })
-    }),
   create: publicProcedure
     .input(createAppSchema)
     .mutation(async ({ input, ctx }) => {
