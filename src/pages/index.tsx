@@ -41,10 +41,10 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
 
   const list = searchValue
     ? apps.filter(
-      (app) =>
-        app.name.includes(searchValue) ||
-        app.description.includes(searchValue)
-    )
+        (app) =>
+          app.name.includes(searchValue) ||
+          app.description.includes(searchValue)
+      )
     : apps
 
   const handleShowMore = () => {
