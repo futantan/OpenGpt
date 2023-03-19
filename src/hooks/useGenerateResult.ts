@@ -1,13 +1,14 @@
 import { GenerateApiInput } from '@/utils/types'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { loadLicenseKey } from './../utils/localData'
-import { useTranslation } from 'next-i18next'
 
 export const useGenerateResult = () => {
   const router = useRouter()
   const [generatedResults, setGeneratedResults] = useState<string>('')
+  // @ts-ignore
   const { t } = useTranslation('common')
 
   async function generate(body: GenerateApiInput) {
