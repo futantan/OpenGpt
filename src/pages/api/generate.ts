@@ -5,7 +5,7 @@ import { selectAPaidKey } from '@/utils/selectApiKeyBasedOnUserIsPaidOrNot'
 import { sendAlertToDiscord } from '@/utils/sendMessageToDiscord'
 import { GenerateApiInput } from '@/utils/types'
 import { NextRequest } from 'next/server'
-import { MAX_TOKENS } from './../../utils/constants'
+import { MAX_TOKENS, PROMPT_SECRET } from './../../utils/constants'
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error('Missing env var from OpenAI')
@@ -94,7 +94,7 @@ function fetchPrompt(id: string) {
   return fetch(`${HOST_URL}/api/app-prompt`, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.PROMPT_SECRET}`,
+      Authorization: `Bearer ${PROMPT_SECRET}`,
     },
     method: 'POST',
     body: JSON.stringify({ id }),
