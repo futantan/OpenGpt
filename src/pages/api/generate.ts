@@ -63,6 +63,9 @@ const handler = async (req: NextRequest): Promise<Response> => {
 
     try {
       const stream = await OpenAIStream(payload, openAIKey, userKey)
+      if (id) {
+        await incUsage(id, !!userKey)
+      }
       return new Response(stream)
     } catch (e) {
       const log =
@@ -103,4 +106,15 @@ function fetchPrompt(id: string) {
     .then((data) => {
       return data as { prompt: string }
     })
+}
+
+function incUsage(id: string, isPaid: boolean) {
+  return fetch(`${HOST_URL}/api/inc-usage`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${PROMPT_SECRET}`,
+    },
+    method: 'POST',
+    body: JSON.stringify({ id, isPaid }),
+  })
 }

@@ -4,7 +4,6 @@ import LoadingDots from '@/components/LoadingDots'
 import { useGenerateResult } from '@/hooks/useGenerateResult'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
-import { api } from '@/utils/api'
 import type {
   GetStaticPaths,
   GetStaticProps,
@@ -64,8 +63,6 @@ const OpenGptApp = (
   const [userInput, setUserInput] = useState(demoInput)
   const { generate, generatedResults } = useGenerateResult()
 
-  const incUsage = api.app.incUsage.useMutation()
-
   const resultRef = useRef<null | HTMLDivElement>(null)
 
   const scrollToResults = () => {
@@ -82,7 +79,6 @@ const OpenGptApp = (
 
     e.preventDefault()
     await generate({ userInput, id })
-    incUsage.mutate(id)
 
     scrollToResults()
     setLoading(false)
