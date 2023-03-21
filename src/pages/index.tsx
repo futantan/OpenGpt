@@ -8,10 +8,10 @@ import { SearchInput } from '@/components/SearchInput'
 import { appRouter } from '@/server/api/root'
 import { prisma } from '@/server/db'
 import type { GetStaticProps, InferGetServerSidePropsType } from 'next'
-import * as R from 'ramda'
-import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import * as R from 'ramda'
+import { useState } from 'react'
 
 type App = {
   id: string
@@ -29,7 +29,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale }) => {
       apps,
       ...(await serverSideTranslations(locale!, ['common'])),
     },
-    revalidate: 120, // In seconds
+    // TODO:
+    // revalidate: 120, // In seconds
   }
 }
 
