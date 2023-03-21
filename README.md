@@ -21,6 +21,7 @@ Progress will be updated in real-time on [Twitter](https://twitter.com/EclipsePr
   - ✅ The number of user-created Apps exceeded eight hundred on March11th! 🤯🤯🤯
 - [x] Support for users using their API token to remove rate limit restrictions
 - [x] Hide some obviously unusable Apps from the homepage
+- [x] i18n internationalization support
 
 Next Stage Plan
 
@@ -30,4 +31,3 @@ Next Stage Plan
 - [ ] Allow creators to profit from the platform!
 - [ ] Add tags for Apps
 - [ ] Ability to create private-only personal apps
-- [ ] i18n internationalization support
