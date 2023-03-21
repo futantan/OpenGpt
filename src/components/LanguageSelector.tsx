@@ -3,6 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Fragment, useCallback, useMemo } from 'react'
+import { useCookies } from 'react-cookie'
 
 /**
  * Returns the locale's name.
@@ -18,6 +19,8 @@ const getLocaleDisplayName = (locale: string, displayLocale?: string) => {
 const LanguageSelector = () => {
   const router = useRouter()
   const { i18n } = useTranslation('common')
+  // https://nextjs.org/docs/advanced-features/i18n-routing#leveraging-the-next_locale-cookie
+  const [cookies, setCookie] = useCookies(['NEXT_LOCALE'])
 
   // Memo the set of locales and their display names.
   const localesAndNames = useMemo(() => {
@@ -29,10 +32,12 @@ const LanguageSelector = () => {
 
   const languageChanged = useCallback(
     async (locale: any) => {
+      setCookie('NEXT_LOCALE', locale, { path: '/' })
+
       const path = router.asPath
       router.push(path, path, { locale })
     },
-    [router]
+    [router, setCookie]
   )
   const { language: currentLanguage } = i18n
 
