@@ -9,6 +9,7 @@ import { api } from '@/utils/api'
 import '@/styles/globals.css'
 import { DEFAULT_SEO_CONFIG } from '@/utils/seoConfig'
 import { Toaster } from 'react-hot-toast'
+import { appWithTranslation } from 'next-i18next'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -30,4 +31,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   )
 }
 
-export default api.withTRPC(MyApp)
+export default api.withTRPC(appWithTranslation(MyApp))

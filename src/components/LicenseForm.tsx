@@ -5,12 +5,14 @@ import { clientValidateLicenseKey } from '@/utils/lemon'
 import { loadLicenseKey, saveLicenseKey } from '@/utils/localData'
 import { useEffect, useRef } from 'react'
 import { toast } from 'react-hot-toast'
+import { useTranslation } from 'next-i18next'
 
 interface LicenseFormProps {
   onBackToPurchase: () => void
 }
 export const LicenseForm = (props: LicenseFormProps) => {
   const licenseKeyInputRef = useRef<HTMLInputElement>(null)
+  const { t } = useTranslation('common')
 
   useEffect(() => {
     if (licenseKeyInputRef.current) {
@@ -19,7 +21,7 @@ export const LicenseForm = (props: LicenseFormProps) => {
   }, [])
 
   const handleClear = () => {
-    toast('数据已清空', { icon: '🗑️' })
+    toast(t('data_cleared'), { icon: '🗑️' })
     saveLicenseKey('')
     props.onBackToPurchase()
   }
@@ -30,13 +32,13 @@ export const LicenseForm = (props: LicenseFormProps) => {
       return
     }
 
-    toast('保存中...')
+    toast(t('saving'))
     const { isValid } = await clientValidateLicenseKey(value)
     if (isValid) {
       saveLicenseKey(value)
-      toast('已保存', { icon: '✅' })
+      toast(t('saved'), { icon: '✅' })
     } else {
-      toast('License Key 格式不正确或次数已用尽', { icon: '❌' })
+      toast(t('license_wrong'), { icon: '❌' })
     }
   }
 
@@ -51,7 +53,7 @@ export const LicenseForm = (props: LicenseFormProps) => {
             <Input
               type="text"
               className="w-full"
-              placeholder="粘贴你购买的 license key"
+              placeholder={t('paste_your_license')}
               ref={licenseKeyInputRef}
             />
           </div>
@@ -59,10 +61,10 @@ export const LicenseForm = (props: LicenseFormProps) => {
       </div>
       <div className="mt-10 flex justify-end gap-3 px-4 sm:px-0">
         <Button variant="solid" color="white" onClick={handleClear}>
-          清除
+          {t('clear')}
         </Button>
         <Button variant="solid" color="blue" onClick={handleSave}>
-          保存
+          {t('save')}
         </Button>
       </div>
 
@@ -80,7 +82,7 @@ export const LicenseForm = (props: LicenseFormProps) => {
           href={PURCHASE_URL}
           className="inline-flex w-full justify-center rounded-full bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0"
         >
-          <span className="">再次购买</span>
+          <span className="">{t('buy_again')}</span>
         </a>
       </div>
     </>

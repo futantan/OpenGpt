@@ -1,18 +1,21 @@
 import { PURCHASE_URL } from '@/utils/constants'
+import { useTranslation } from 'next-i18next'
 
 interface PurchaseActionProps {
   onAlreadyPurchasedClick: () => void
 }
 export const PurchaseAction = (props: PurchaseActionProps) => {
+  const { t } = useTranslation('common')
+
   return (
     <>
-      <p className="text-base font-semibold text-gray-600">限时 6 折</p>
+      <p className="text-base font-semibold text-gray-600">{t('60off')}</p>
       <p className="mt-6 flex items-baseline justify-center gap-x-2">
         <span className="text-5xl font-bold tracking-tight text-gray-900">
           $3
         </span>
         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
-          50 次
+          50 {t('count')}
         </span>
       </p>
       <p className="mt-6 flex items-baseline justify-center gap-x-2">
@@ -20,7 +23,7 @@ export const PurchaseAction = (props: PurchaseActionProps) => {
           $6
         </span>
         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
-          120 次
+          120 {t('count')}
         </span>
       </p>
       <p className="mt-6 flex items-baseline justify-center gap-x-2">
@@ -28,14 +31,14 @@ export const PurchaseAction = (props: PurchaseActionProps) => {
           $12
         </span>
         <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">
-          300 次
+          300 {t('count')}
         </span>
       </p>
       <a
         href={PURCHASE_URL}
         className="mt-10 block w-full rounded-full bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-        购买
+        {t('buy')}
       </a>
 
       <div className="relative py-4">
@@ -52,7 +55,7 @@ export const PurchaseAction = (props: PurchaseActionProps) => {
           onClick={props.onAlreadyPurchasedClick}
           className="inline-flex w-full justify-center rounded-full bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0"
         >
-          <span className="">已经购买点这里</span>
+          <span className="">{t('click_here_if_paid')}</span>
         </button>
       </div>
     </>

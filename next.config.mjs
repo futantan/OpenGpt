@@ -9,5 +9,9 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  i18n: {
+    defaultLocale: 'zh',
+    locales: ['zh', 'en', 'zh-Hant'],
+  },
 }
 export default config

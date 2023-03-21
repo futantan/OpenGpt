@@ -1,9 +1,12 @@
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 export const Breadcrumb = (props: {
   pages: Array<{ name: string; href: string; current: boolean }>
 }) => {
+  const { t } = useTranslation('common')
+
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
@@ -14,7 +17,7 @@ export const Breadcrumb = (props: {
               className="flex items-center gap-2 text-sm text-gray-400 hover:text-gray-500"
             >
               <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-              <span className="">应用列表</span>
+              <span className="">{t('app_list')}</span>
             </Link>
           </div>
         </li>

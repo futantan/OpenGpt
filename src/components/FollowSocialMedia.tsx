@@ -1,10 +1,13 @@
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 const FollowSocialMedia = () => {
+  const { t } = useTranslation('common')
+
   return (
     <div className="mx-auto mb-10 flex items-center justify-center space-x-4 pb-4 sm:pb-0">
       <div>
-        关注{' '}
+        {t('follow')}{' '}
         <Link
           href="https://twitter.com/EclipsePrayer"
           className="group underline hover:text-blue-400"
@@ -12,7 +15,7 @@ const FollowSocialMedia = () => {
         >
           Twitter
         </Link>{' '}
-        和{' '}
+        {t('and')}{' '}
         <Link
           href="https://github.com/futantan/OpenGpt"
           className="group underline hover:text-gray-400"
@@ -20,7 +23,7 @@ const FollowSocialMedia = () => {
         >
           GitHub
         </Link>
-        ，获取最新进展!
+        {t('get_updates')}
       </div>
       <div className="flex items-center gap-3">
         <Link
