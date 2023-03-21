@@ -38,6 +38,7 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { apps } = props
   const [searchValue, setSearchValue] = useState('')
   const [sizeToShow, setSizeToShow] = useState(100)
+  // @ts-ignore
   const { t } = useTranslation('common')
 
   const list = searchValue
