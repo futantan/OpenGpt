@@ -18,6 +18,7 @@ const getLocaleDisplayName = (locale: string, displayLocale?: string) => {
 
 const LanguageSelector = () => {
   const router = useRouter()
+  // @ts-ignore
   const { i18n } = useTranslation('common')
   // https://nextjs.org/docs/advanced-features/i18n-routing#leveraging-the-next_locale-cookie
   const [cookies, setCookie] = useCookies(['NEXT_LOCALE'])
