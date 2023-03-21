@@ -42,7 +42,7 @@
   "paste_your_license": "Paste your purchased license key",
   "load_more": "Load More",
   "price": "Price",
-  "please_buy": "Each user can use {RATE_LIMIT_COUNT} times for free every day. If you exceed the limit, please purchase additional usage times.",
+  "please_buy": "Each user can use {{rateLimitCount}} times for free every day. If you exceed the limit, please purchase additional usage times.",
   "runout_today": "Today's free limit has been reached. Please purchase additional usage times.",
   "pay_to_use": "Pay to Use",
   "pay_to_use_p1": "The OpenGPT project incurs high server costs and OpenAI API costs. If OpenGPT has helped you, please consider paying to use it.",

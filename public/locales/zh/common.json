@@ -42,7 +42,7 @@
   "paste_your_license": "粘贴你购买的 license key",
   "load_more": "加载更多",
   "price": "价格",
-  "please_buy": "每个用户每天免费使用 {RATE_LIMIT_COUNT} 次，超出额度请购买使用次数。",
+  "please_buy": "每个用户每天免费使用 {{rateLimitCount}} 次，超出额度请购买使用次数。",
   "runout_today": "今天的免费限制已达到。请购买额外的使用次数。",
   "pay_to_use": "付费使用",
   "pay_to_use_p1": "OpenGPT 项目需要负担高昂的服务器成本和 OpenAI API 成本，如果OpenGPT 有帮助到您，请考虑付费使用。",
