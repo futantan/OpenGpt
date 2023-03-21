@@ -2,6 +2,7 @@ import { HandThumbUpIcon, PlayIcon } from '@heroicons/react/24/outline'
 import { useTranslation } from 'next-i18next'
 
 const AppListLoading = () => {
+  // @ts-ignore
   const { t } = useTranslation('common')
 
   return (
