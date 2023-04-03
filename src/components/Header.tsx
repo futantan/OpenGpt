@@ -75,7 +75,7 @@ const useHeaders = () => {
         //   target: '_blank',
         // },
         {
-          href: 'https://chatgpt-vercel-kyhqztfgc-naughtydogofschrodinger.vercel.app/',
+          href: 'https://chat.chatdogge.xyz/',
           label: t('🤖️prompt机器人'),
           target: '_blank',
         },

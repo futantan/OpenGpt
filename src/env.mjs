@@ -7,6 +7,7 @@ import { z } from 'zod'
 const server = z.object({
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(['development', 'test', 'production']),
+  BASE_URL: z.string(),
   // TODO: uncomment once login is enabled
   // NEXTAUTH_SECRET:
   //   process.env.NODE_ENV === 'production'
@@ -41,6 +42,7 @@ const client = z.object({
 const processEnv = {
   DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
+  BASE_URL: process.env.BASE_URL,
   // TODO: uncomment once login is enabled
   // NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   // NEXTAUTH_URL: process.env.NEXTAUTH_URL,

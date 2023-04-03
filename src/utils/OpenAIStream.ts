@@ -5,9 +5,9 @@ import {
   type ReconnectInterval,
 } from 'eventsource-parser'
 import { MAX_TOKENS } from './constants'
+import { env } from '@/env.mjs'
 
 export type ChatGPTAgent = 'user' | 'system'
-
 export interface ChatGPTMessage {
   role: ChatGPTAgent
   content: string
@@ -35,8 +35,7 @@ export async function OpenAIStream(
   const decoder = new TextDecoder()
 
   let counter = 0
-
-  const res = await fetch('https://closeai.deno.dev/v1/chat/completions', {
+  const res = await fetch(`https://${env.BASE_URL}/v1/chat/completions`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${openAIKey}`,
