@@ -36,7 +36,7 @@ export async function OpenAIStream(
 
   let counter = 0
 
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  const res = await fetch('https://closeai.deno.dev/v1/chat/completions', {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${openAIKey}`,
