@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import * as R from 'ramda'
 import { useState } from 'react'
+import { Chat } from '@/components/Chat'
 
 type App = {
   id: string

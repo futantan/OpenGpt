@@ -15,6 +15,7 @@ import { toast } from 'react-hot-toast'
 import { useTranslation } from 'next-i18next'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { Chat } from '@/components/Chat'
 
 type Inputs = RouterInputs['app']['create']
 
@@ -193,6 +194,7 @@ const NewApp = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="flex justify-end gap-3 px-4 sm:px-0">
                   <Button
                     variant="solid"
