@@ -1,13 +1,11 @@
-import { activateLicenseKey } from '@/utils/lemon'
 import {
   createParser,
-  type ParsedEvent,
-  type ReconnectInterval,
+  ParsedEvent,
+  ReconnectInterval,
 } from 'eventsource-parser'
-import { MAX_TOKENS } from './constants'
-import { env } from '@/env.mjs'
 
-export type ChatGPTAgent = 'user' | 'system'
+export type ChatGPTAgent = 'user' | 'system' | 'assistant'
+
 export interface ChatGPTMessage {
   role: ChatGPTAgent
   content: string
@@ -22,51 +20,42 @@ export interface OpenAIStreamPayload {
   presence_penalty: number
   max_tokens: number
   stream: boolean
+  stop?: string[]
+  user?: string
   n: number
 }
 
-export async function OpenAIStream(
-  payload: OpenAIStreamPayload,
-  openAIKey: string,
-  licenseKey?: string
-) {
-  const isUsingLicense = !!licenseKey
+export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const encoder = new TextEncoder()
   const decoder = new TextDecoder()
 
   let counter = 0
-  const res = await fetch(`https://${env.BASE_URL}/v1/chat/completions`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${openAIKey}`,
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      ...payload,
-      max_tokens: isUsingLicense ? MAX_TOKENS * 2 : MAX_TOKENS,
-    }),
-  })
 
-  if (res.status !== 200) {
-    const errorJson = await res.json()
-    throw new Error(
-      `OpenAI API Error [${res.statusText}]: ${errorJson.error?.message}`
-    )
+  const requestHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ''}`,
   }
+
+  if (process.env.OPENAI_API_ORG) {
+    requestHeaders['OpenAI-Organization'] = process.env.OPENAI_API_ORG
+  }
+
+  const res = await fetch('https://closeai.deno.dev/v1/chat/completions', {
+    headers: requestHeaders,
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
 
   const stream = new ReadableStream({
     async start(controller) {
       // callback
-      async function onParse(event: ParsedEvent | ReconnectInterval) {
+      function onParse(event: ParsedEvent | ReconnectInterval) {
         if (event.type === 'event') {
           const data = event.data
           // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
           if (data === '[DONE]') {
-            if (isUsingLicense) {
-              await activateLicenseKey(licenseKey || '')
-            }
+            console.log('DONE')
             controller.close()
-
             return
           }
           try {
@@ -89,7 +78,6 @@ export async function OpenAIStream(
       // stream response (SSE) from OpenAI may be fragmented into multiple chunks
       // this ensures we properly read chunks and invoke an event for each SSE event stream
       const parser = createParser(onParse)
-      // https://web.dev/streams/#asynchronous-iteration
       for await (const chunk of res.body as any) {
         parser.feed(decoder.decode(chunk))
       }
