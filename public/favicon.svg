@@ -1,0 +1,42 @@
+<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+ <title>93-robot-face-2</title>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="42" width="42" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_13" stroke="null">
+   <path transform="rotate(55.961212158203125 4.730113029479982,26.464672088623047) " id="_Path_" data-name="&lt;Path&gt;" class="cls-1" d="m2.500961,28.706518a4.06,4.06 0 0 1 -1.18,-5.6l7.47,4.86a4.05,4.05 0 0 1 -5.63,1.19l-0.66,-0.45z" fill="#ff8a14" stroke="null"/>
+   <path id="_Path_2" data-name="&lt;Path&gt;" class="cls-2" d="m24.858151,8.185388l-9,0l0.58,-2.38a1.46,1.46 0 0 1 1.42,-1.12l5,0a1.47,1.47 0 0 1 1.42,1.11l0.58,2.39z" fill="#adc4d9" stroke-linecap="round" stroke-linejoin="round" stroke="#45413c"/>
+   <path class="cls-3" d="m20.358151,7.185388a14.5,14.5 0 0 0 -14.5,14.5l0,10.5a3.5,3.5 0 0 0 3.5,3.5l22,0a3.5,3.5 0 0 0 3.5,-3.5l0,-10.5a14.5,14.5 0 0 0 -14.5,-14.5z" fill="#ffe500" id="svg_1" stroke="null"/>
+   <path class="cls-4" d="m20.358151,7.185388a14.5,14.5 0 0 0 -14.5,14.5l0,4a14.5,14.5 0 0 1 29,0l0,-4a14.5,14.5 0 0 0 -14.5,-14.5z" fill="#fff48c" id="svg_2" stroke="null"/>
+   <path class="cls-5" d="m20.358151,7.185388a14.5,14.5 0 0 0 -14.5,14.5l0,10.5a3.5,3.5 0 0 0 3.5,3.5l22,0a3.5,3.5 0 0 0 3.5,-3.5l0,-10.5a14.5,14.5 0 0 0 -14.5,-14.5z" stroke-linecap="round" stroke-linejoin="round" fill="none" id="svg_3" stroke="#45413c"/>
+   <circle id="_Ellipse_2" data-name="&lt;Ellipse&gt;" class="cls-7" cx="27.248151" cy="20.265388" r="4.46" stroke-linecap="round" stroke-linejoin="round" fill="#fff" stroke="#45413c"/>
+   <circle id="_Ellipse_3" data-name="&lt;Ellipse&gt;" class="cls-8" cx="27.248151" cy="20.265388" r="1.62" stroke-linecap="round" stroke-linejoin="round" fill="#ff6242" stroke="#45413c"/>
+   <circle id="_Ellipse_4" data-name="&lt;Ellipse&gt;" class="cls-7" cx="13.468151" cy="20.265388" r="4.05" stroke-linecap="round" stroke-linejoin="round" fill="#fff" stroke="#45413c"/>
+   <circle id="_Ellipse_5" data-name="&lt;Ellipse&gt;" class="cls-9" cx="13.468151" cy="20.265388" r="1.62" stroke-linecap="round" stroke-linejoin="round" fill="#6dd627" stroke="#45413c"/>
+   <line id="_Line_" data-name="&lt;Line&gt;" class="cls-5" x1="20.358151" y1="7.185388" x2="20.358151" y2="29.185388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_2" data-name="&lt;Line&gt;" class="cls-5" x1="27.248151" y1="17.435388" x2="27.248151" y2="15.805388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_3" data-name="&lt;Line&gt;" class="cls-5" x1="29.258151" y1="18.265388" x2="30.398151" y2="17.115388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_4" data-name="&lt;Line&gt;" class="cls-5" x1="30.088151" y1="20.265388" x2="31.708151" y2="20.265388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_5" data-name="&lt;Line&gt;" class="cls-5" x1="29.258151" y1="22.275388" x2="30.398151" y2="23.425388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_6" data-name="&lt;Line&gt;" class="cls-5" x1="27.248151" y1="23.105388" x2="27.248151" y2="24.725388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_7" data-name="&lt;Line&gt;" class="cls-5" x1="25.238151" y1="22.275388" x2="24.098151" y2="23.425388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_8" data-name="&lt;Line&gt;" class="cls-5" x1="24.408151" y1="20.265388" x2="22.788151" y2="20.265388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <line id="_Line_9" data-name="&lt;Line&gt;" class="cls-5" x1="25.238151" y1="18.265388" x2="24.098151" y2="17.115388" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <circle id="_Ellipse_6" data-name="&lt;Ellipse&gt;" class="cls-8" cx="20.537108" cy="3.85103" r="2.03" stroke-linecap="round" stroke-linejoin="round" fill="#ff6242" stroke="#45413c"/>
+   <path transform="rotate(57.442848205566406 5.086390972137439,26.26892852783204) " id="_Path_5" data-name="&lt;Path&gt;" class="cls-10" d="m1.311391,23.679048a4.76,4.76 0 0 0 2.26,4l0.77,0.5a4.81,4.81 0 0 0 4.26,0.57a2,2 0 0 0 0.26,-0.32l-7.47,-4.9a1.09,1.09 0 0 0 -0.08,0.15z" fill="#ffaa54" stroke="null"/>
+   <path transform="rotate(57.099281311035156 4.873603343963621,26.658245086669922) " id="_Path_6" data-name="&lt;Path&gt;" class="cls-5" d="m2.644451,28.900091a4.06,4.06 0 0 1 -1.18,-5.6l7.47,4.86a4.05,4.05 0 0 1 -5.63,1.19l-0.66,-0.45z" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="#45413c"/>
+   <path class="cls-1" d="m38.858151,26.685388a4,4 0 0 1 -4,4l0,-9a4,4 0 0 1 4,4l0,1z" fill="#ff8a14" id="svg_4" stroke="null"/>
+   <path class="cls-10" d="m34.858151,21.685388l0,2a4,4 0 0 1 4,3.5a4.07,4.07 0 0 0 0,-0.5l0,-1a4,4 0 0 0 -4,-4z" fill="#ffaa54" id="svg_5" stroke="null"/>
+   <path class="cls-5" d="m38.858151,26.685388a4,4 0 0 1 -4,4l0,-9a4,4 0 0 1 4,4l0,1z" stroke-linecap="round" stroke-linejoin="round" fill="none" id="svg_6" stroke="#45413c"/>
+   <rect class="cls-11" x="9.858151" y="29.185388" width="21" height="8" rx="1.5" ry="1.5" fill="#c0dceb" id="svg_7" stroke="null"/>
+   <path class="cls-12" d="m29.358151,29.185388l-18,0a1.5,1.5 0 0 0 -1.5,1.5l0,2a1.5,1.5 0 0 1 1.5,-1.5l18,0a1.5,1.5 0 0 1 1.5,1.5l0,-2a1.5,1.5 0 0 0 -1.5,-1.5z" fill="#daedf7" id="svg_8" stroke="null"/>
+   <rect class="cls-5" x="9.858151" y="29.185388" width="21" height="8" rx="1.5" ry="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" id="svg_9" stroke="#45413c"/>
+   <path class="cls-13" d="m11.858151,30.685388a0.5,0.5 0 1 0 0.5,0.5a0.5,0.5 0 0 0 -0.5,-0.5z" fill="#45413c" id="svg_10" stroke="null"/>
+   <path class="cls-13" d="m28.858151,30.685388a0.5,0.5 0 1 0 0.5,0.5a0.5,0.5 0 0 0 -0.5,-0.5z" fill="#45413c" id="svg_11" stroke="null"/>
+  </g>
+ </g>
+</svg>

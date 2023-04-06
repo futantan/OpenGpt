@@ -1,13 +1,18 @@
-import { Popover, Transition } from '@headlessui/react'
+import { Popover, Transition, Menu } from '@headlessui/react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { Fragment, useMemo } from 'react'
-
+import { Fragment, useMemo, useState } from 'react'
 import { Container } from '@/components/Container'
 import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
 import { useTranslation } from 'next-i18next'
 import { LanguageSelector } from './LanguageSelector'
+import { useSession } from 'next-auth/react'
+import { useSignInModal } from '@/components/layout/sign-in-modal'
+import { AnimatePresence, motion } from 'framer-motion'
+import UserDropdown from '@/components/layout/user-dropdown'
+import { FADE_IN_ANIMATION_SETTINGS } from '@/utils/constants'
 
 function MobileNavLink({
   href,
@@ -63,24 +68,11 @@ const useHeaders = () => {
   const HEADER_LINKS: Array<{ href: string; label: string; target?: string }> =
     useMemo(
       () => [
-        // {
-        //   href: 'https://github.com/futantan/OpenGpt',
-        //   label: '⭐️ Star on GitHub',
-        //   target: '_blank',
-        // },
         { href: '/usage', label: '💸 Usage' },
-        // {
-        //   href: 'https://l5oj8ohzdp.feishu.cn/share/base/form/shrcnqfgna9DRRNsEy3rRaqiJCf',
-        //   label: '🔥 ' + t('give_feedack'),
-        //   target: '_blank',
-        // },
         {
           href: 'https://chat.chatdogge.xyz/',
-          label: t('🤖️prompt机器人'),
-          target: '_blank',
+          label: t('🤖️ prompt机器人'),
         },
-        // { href: '#testimonials', label: '用户评价' },
-        // { href: '#pricing', label: '价格' },
       ],
       [t]
     )
@@ -137,6 +129,9 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  const { data: session, status } = useSession()
+  const { SignInModal, setShowSignInModal } = useSignInModal()
+
   const HEADER_LINKS = useHeaders()
 
   return (
@@ -158,17 +153,25 @@ export function Header() {
 
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <LanguageSelector />
-            <div className="hidden md:block">
-              {/* <NavLink href="/login">Sign in</NavLink> */}
+            <div>
+              <AnimatePresence>
+                {!session && status !== 'loading' ? (
+                  <motion.button
+                    className="rounded-full border border-black bg-black p-1.5 px-4 text-sm text-white transition-all hover:bg-white hover:text-black"
+                    onClick={() => setShowSignInModal(true)}
+                    {...FADE_IN_ANIMATION_SETTINGS}
+                  >
+                    Sign In
+                  </motion.button>
+                ) : (
+                  <UserDropdown />
+                )}
+              </AnimatePresence>
             </div>
-            {/* <Button href="/register" color="blue">
-              <span>
-                Get started <span className="hidden lg:inline">today</span>
-              </span>
-            </Button> */}
             <div className="-mr-1 md:hidden">
               <MobileNavigation />
             </div>
+            <SignInModal />
           </div>
         </nav>
       </Container>

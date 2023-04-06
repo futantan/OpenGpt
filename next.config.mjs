@@ -13,5 +13,8 @@ const config = {
     defaultLocale: 'zh',
     locales: ['zh', 'en', 'zh-Hant'],
   },
+  images: {
+    domains: ['avatars.githubusercontent.com'],
+  }
 }
 export default config

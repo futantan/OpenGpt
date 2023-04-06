@@ -12,7 +12,6 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import * as R from 'ramda'
 import { useState } from 'react'
-import { Chat } from '@/components/Chat'
 
 type App = {
   id: string
@@ -60,8 +59,8 @@ const Home = () => {
         <Header />
         <main>
           <Hero />
-          <div className="w-full bg-slate-50 pb-20 pt-10">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="w-full bg-slate-50 bg-gradient-to-br from-indigo-50 via-white to-cyan-100 pb-20 pt-10">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
               <div className="mb-10 grid grid-cols-1 items-center justify-between pt-10 sm:grid-cols-3 sm:pt-0 ">
                 <div />
                 <SearchInput
@@ -98,7 +97,7 @@ const Home = () => {
             <AppList list={R.take(sizeToShow, list)} />
 
             <div className="mt-10 flex justify-center">
-              <Button color="blue" onClick={handleShowMore}>
+              <Button color="slate" onClick={handleShowMore}>
                 {t('load_more')}
               </Button>
             </div>
@@ -106,7 +105,7 @@ const Home = () => {
         </div>
         {/* <PrimaryFeatures /> */}
         {/* <SecondaryFeatures /> */}
-        <CallToAction />
+        {/*<CallToAction />*/}
         {/* <Testimonials /> */}
         {/* <Pricing /> */}
         {/* <Faqs /> */}
