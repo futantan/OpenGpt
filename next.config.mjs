@@ -11,7 +11,7 @@ const config = {
   reactStrictMode: true,
   i18n: {
     defaultLocale: 'zh',
-    locales: ['zh', 'en', 'zh-Hant'],
+    locales: ['zh', 'en', 'zh-Hant', 'pt-BR'],
   },
 }
 export default config

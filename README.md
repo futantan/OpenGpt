@@ -1,6 +1,6 @@
 # OpenGpt
 
-English | [简体中文](./README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md) | [Português (Brasil)](./README-pt_BR.md)
 
 Website: https://open-gpt.app/
 
