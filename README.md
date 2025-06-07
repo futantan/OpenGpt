@@ -22,3 +22,7 @@ Progress will be updated in real-time on [Twitter](https://twitter.com/EclipsePr
 - [x] Support for users using their API token to remove rate limit restrictions
 - [x] Hide some obviously unusable Apps from the homepage
 - [x] i18n internationalization support
+
+[Powered by DartNode](https://dartnode.com 'Powered by DartNode - Free VPS for Open Source')
+
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com 'Powered by DartNode - Free VPS for Open Source')
