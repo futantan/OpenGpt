@@ -1,6 +1,6 @@
 # OpenGpt
 
-简体中文 | [English](./README.md)
+简体中文 | [English](./README.md) | [Português (Brasil)](./README-pt_BR.md)
 
 网址：https://open-gpt.app/
 
